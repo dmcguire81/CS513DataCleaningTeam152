@@ -1,0 +1,45 @@
+digraph Workflow {
+rankdir=LR
+fontname=Courier; fontsize=18; labelloc=t
+label=main
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; color=white
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+read_food_inspections_input
+extract_inspection_ids
+extract_address_parts
+geocode_addresses
+extract_location_coordinates
+reverse_geocode_locations
+join_geocoding_results
+write_geocoding_output
+edge[fontname=Helvetica]
+read_food_inspections_input -> extract_inspection_ids [label=food_inspections_df]
+read_food_inspections_input -> extract_address_parts [label=food_inspections_df]
+read_food_inspections_input -> extract_location_coordinates [label=food_inspections_df]
+extract_address_parts -> geocode_addresses [label=address_parts_df]
+extract_address_parts -> reverse_geocode_locations [label=address_parts_df]
+geocode_addresses -> extract_location_coordinates [label=location_df]
+geocode_addresses -> join_geocoding_results [label=location_df]
+extract_location_coordinates -> reverse_geocode_locations [label=location_coordinates_df]
+extract_inspection_ids -> join_geocoding_results [label=inspection_ids]
+reverse_geocode_locations -> join_geocoding_results [label=address_df]
+join_geocoding_results -> write_geocoding_output [label=geocoding_df]
+}}
+subgraph cluster_input_ports_group_outer { label=""; color=white
+subgraph cluster_input_ports_group_inner { label=""; color=white
+node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
+food_inspections_input_filename_input_port [label=""]
+food_inspections_input_file_input_port [label=""]
+}}
+subgraph cluster_output_ports_group_outer { label=""; color=white
+subgraph cluster_output_ports_group_inner { label=""; color=white
+node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
+geocoding_output_file_output_port [label=""]
+}}
+edge[fontname=Helvetica]
+food_inspections_input_filename_input_port -> read_food_inspections_input [label=food_inspections_input_filename]
+food_inspections_input_file_input_port -> read_food_inspections_input [label=food_inspections_input_file]
+edge[fontname=Helvetica]
+write_geocoding_output -> geocoding_output_file_output_port [label=geocoding_output_file]
+}
