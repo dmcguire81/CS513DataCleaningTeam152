@@ -1,0 +1,145 @@
+digraph Workflow {
+rankdir=TB
+fontname=Courier; fontsize=18; labelloc=t
+label=Linear_OR
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; color=white
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+"core/column-removal0" [shape=record rankdir=LR label="{<f0> 'core/column-removal0' |<f1> Remove column DBA Name}"];
+"core/column-removal1" [shape=record rankdir=LR label="{<f0> 'core/column-removal1' |<f1> Remove column AKA Name}"];
+"core/column-removal2" [shape=record rankdir=LR label="{<f0> 'core/column-removal2' |<f1> Remove column License #}"];
+"core/column-removal3" [shape=record rankdir=LR label="{<f0> 'core/column-removal3' |<f1> Remove column Facility Type}"];
+"core/column-removal4" [shape=record rankdir=LR label="{<f0> 'core/column-removal4' |<f1> Remove column Risk}"];
+"core/column-removal5" [shape=record rankdir=LR label="{<f0> 'core/column-removal5' |<f1> Remove column Address}"];
+"core/column-removal6" [shape=record rankdir=LR label="{<f0> 'core/column-removal6' |<f1> Remove column City}"];
+"core/column-removal7" [shape=record rankdir=LR label="{<f0> 'core/column-removal7' |<f1> Remove column State}"];
+"core/column-removal8" [shape=record rankdir=LR label="{<f0> 'core/column-removal8' |<f1> Remove column Zip}"];
+"core/column-removal9" [shape=record rankdir=LR label="{<f0> 'core/column-removal9' |<f1> Remove column Inspection Date}"];
+"core/column-removal10" [shape=record rankdir=LR label="{<f0> 'core/column-removal10' |<f1> Remove column Inspection Type}"];
+"core/column-removal11" [shape=record rankdir=LR label="{<f0> 'core/column-removal11' |<f1> Remove column Results}"];
+"core/column-removal12" [shape=record rankdir=LR label="{<f0> 'core/column-removal12' |<f1> Remove column Latitude}"];
+"core/column-removal13" [shape=record rankdir=LR label="{<f0> 'core/column-removal13' |<f1> Remove column Longitude}"];
+"core/column-removal14" [shape=record rankdir=LR label="{<f0> 'core/column-removal14' |<f1> Remove column Location}"];
+"core/row-removal0" [shape=record rankdir=LR label="{<f0> 'core/row-removal0' |<f1> Remove rows}"];
+"core/text-transform0" [shape=record rankdir=LR label="{<f0> 'core/text-transform0' |<f1> Text transform on cells in column Violations using expression value.trim()}"];
+"core/column-split0" [shape=record rankdir=LR label="{<f0> 'core/column-split0' |<f1> Split column Violations by separator}"];
+"core/text-transform1" [shape=record rankdir=LR label="{<f0> 'core/text-transform1' |<f1> Text transform on cells in column Violations 1 using expression value.trim()}"];
+"core/text-transform2" [shape=record rankdir=LR label="{<f0> 'core/text-transform2' |<f1> Text transform on cells in column Violations 2 using expression value.trim()}"];
+"core/column-split1" [shape=record rankdir=LR label="{<f0> 'core/column-split1' |<f1> Split column Violations 1 by separator}"];
+"core/text-transform3" [shape=record rankdir=LR label="{<f0> 'core/text-transform3' |<f1> Text transform on cells in column Violations 1 1 using expression value.toNumber()}"];
+"core/column-rename0" [shape=record rankdir=LR label="{<f0> 'core/column-rename0' |<f1> Rename column Violations 1 1 to Violation ID}"];
+"core/column-rename1" [shape=record rankdir=LR label="{<f0> 'core/column-rename1' |<f1> Rename column Violations 1 2 to Violation Title}"];
+"core/column-rename2" [shape=record rankdir=LR label="{<f0> 'core/column-rename2' |<f1> Rename column Violations 2 to Violation Comments}"];
+"core/text-transform4" [shape=record rankdir=LR label="{<f0> 'core/text-transform4' |<f1> Text transform on cells in column Violation Title using expression value.replace(/^\\*\\s+/,\"\")}"];
+edge[fontname=Helvetica]
+"core/column-removal0" -> "core/column-removal1" [label=table1]
+"core/column-removal1" -> "core/column-removal2" [label=table2]
+"core/column-removal2" -> "core/column-removal3" [label=table3]
+"core/column-removal3" -> "core/column-removal4" [label=table4]
+"core/column-removal4" -> "core/column-removal5" [label=table5]
+"core/column-removal5" -> "core/column-removal6" [label=table6]
+"core/column-removal6" -> "core/column-removal7" [label=table7]
+"core/column-removal7" -> "core/column-removal8" [label=table8]
+"core/column-removal8" -> "core/column-removal9" [label=table9]
+"core/column-removal9" -> "core/column-removal10" [label=table10]
+"core/column-removal10" -> "core/column-removal11" [label=table11]
+"core/column-removal11" -> "core/column-removal12" [label=table12]
+"core/column-removal12" -> "core/column-removal13" [label=table13]
+"core/column-removal13" -> "core/column-removal14" [label=table14]
+"core/column-removal14" -> "core/row-removal0" [label=table15]
+"core/row-removal0" -> "core/text-transform0" [label=table16]
+"core/text-transform0" -> "core/column-split0" [label=table17]
+"core/column-split0" -> "core/text-transform1" [label=table18]
+"core/text-transform1" -> "core/text-transform2" [label=table19]
+"core/text-transform2" -> "core/column-split1" [label=table20]
+"core/column-split1" -> "core/text-transform3" [label=table21]
+"core/text-transform3" -> "core/column-rename0" [label=table22]
+"core/column-rename0" -> "core/column-rename1" [label=table23]
+"core/column-rename1" -> "core/column-rename2" [label=table24]
+"core/column-rename2" -> "core/text-transform4" [label=table25]
+}}
+subgraph cluster_input_ports_group_outer { label=""; color=white
+subgraph cluster_input_ports_group_inner { label=""; color=white
+node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
+"separator:\"-_Comments:\"_input_port" [label=""]
+"col-name:License_#_input_port" [label=""]
+"col-name:Address_input_port" [label=""]
+"col-name:Violation_Title_input_port" [label=""]
+"col-name:Violations_2_input_port" [label=""]
+"oldColumnName:Violations_1_2_input_port" [label=""]
+"expression:value.trim()_input_port" [label=""]
+"oldColumnName:Violations_2_input_port" [label=""]
+"col-name:Longitude_input_port" [label=""]
+"oldColumnName:Violations_1_1_input_port" [label=""]
+"col-name:Violations_1_1_input_port" [label=""]
+"col-name:Facility_Type_input_port" [label=""]
+"col-name:Zip_input_port" [label=""]
+"col-name:Inspection_Date_input_port" [label=""]
+"col-name:Results_input_port" [label=""]
+"removeOriginalColumn:True_input_port" [label=""]
+"expression:value.toNumber()_input_port" [label=""]
+"newColumnName:Violation_Comments_input_port" [label=""]
+"expression:\"\\w+\"_input_port" [label=""]
+"col-name:Inspection_Type_input_port" [label=""]
+"separator:\"._\"_input_port" [label=""]
+"col-name:Location_input_port" [label=""]
+"col-name:Violations_1_input_port" [label=""]
+"col-name:DBA_Name_input_port" [label=""]
+"col-name:AKA_Name_input_port" [label=""]
+"col-name:Latitude_input_port" [label=""]
+"col-name:Risk_input_port" [label=""]
+"col-name:State_input_port" [label=""]
+"newColumnName:Violation_ID_input_port" [label=""]
+"col-name:City_input_port" [label=""]
+"newColumnName:Violation_Title_input_port" [label=""]
+"expression:value.replace(/^\\*\\s+/,\"\")_input_port" [label=""]
+"col-name:Violations_input_port" [label=""]
+table0_input_port [label=""]
+}}
+subgraph cluster_output_ports_group_outer { label=""; color=white
+subgraph cluster_output_ports_group_inner { label=""; color=white
+node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
+}}
+edge[fontname=Helvetica]
+"col-name:DBA_Name_input_port" -> "core/column-removal0" [label="col-name:DBA_Name"]
+table0_input_port -> "core/column-removal0" [label=table0]
+"col-name:AKA_Name_input_port" -> "core/column-removal1" [label="col-name:AKA_Name"]
+"col-name:License_#_input_port" -> "core/column-removal2" [label="col-name:License_#"]
+"col-name:Facility_Type_input_port" -> "core/column-removal3" [label="col-name:Facility_Type"]
+"col-name:Risk_input_port" -> "core/column-removal4" [label="col-name:Risk"]
+"col-name:Address_input_port" -> "core/column-removal5" [label="col-name:Address"]
+"col-name:City_input_port" -> "core/column-removal6" [label="col-name:City"]
+"col-name:State_input_port" -> "core/column-removal7" [label="col-name:State"]
+"col-name:Zip_input_port" -> "core/column-removal8" [label="col-name:Zip"]
+"col-name:Inspection_Date_input_port" -> "core/column-removal9" [label="col-name:Inspection_Date"]
+"col-name:Inspection_Type_input_port" -> "core/column-removal10" [label="col-name:Inspection_Type"]
+"col-name:Results_input_port" -> "core/column-removal11" [label="col-name:Results"]
+"col-name:Latitude_input_port" -> "core/column-removal12" [label="col-name:Latitude"]
+"col-name:Longitude_input_port" -> "core/column-removal13" [label="col-name:Longitude"]
+"col-name:Location_input_port" -> "core/column-removal14" [label="col-name:Location"]
+"col-name:Violations_input_port" -> "core/row-removal0" [label="col-name:Violations"]
+"col-name:Violations_input_port" -> "core/text-transform0" [label="col-name:Violations"]
+"col-name:Violations_input_port" -> "core/column-split0" [label="col-name:Violations"]
+"expression:\"\\w+\"_input_port" -> "core/row-removal0" [label="expression:\"\\w+\""]
+"expression:value.trim()_input_port" -> "core/text-transform0" [label="expression:value.trim()"]
+"expression:value.trim()_input_port" -> "core/text-transform1" [label="expression:value.trim()"]
+"expression:value.trim()_input_port" -> "core/text-transform2" [label="expression:value.trim()"]
+"separator:\"-_Comments:\"_input_port" -> "core/column-split0" [label="separator:\"-_Comments:\""]
+"removeOriginalColumn:True_input_port" -> "core/column-split0" [label="removeOriginalColumn:True"]
+"removeOriginalColumn:True_input_port" -> "core/column-split1" [label="removeOriginalColumn:True"]
+"col-name:Violations_1_input_port" -> "core/text-transform1" [label="col-name:Violations_1"]
+"col-name:Violations_1_input_port" -> "core/column-split1" [label="col-name:Violations_1"]
+"col-name:Violations_2_input_port" -> "core/text-transform2" [label="col-name:Violations_2"]
+"separator:\"._\"_input_port" -> "core/column-split1" [label="separator:\"._\""]
+"col-name:Violations_1_1_input_port" -> "core/text-transform3" [label="col-name:Violations_1_1"]
+"expression:value.toNumber()_input_port" -> "core/text-transform3" [label="expression:value.toNumber()"]
+"oldColumnName:Violations_1_1_input_port" -> "core/column-rename0" [label="oldColumnName:Violations_1_1"]
+"newColumnName:Violation_ID_input_port" -> "core/column-rename0" [label="newColumnName:Violation_ID"]
+"oldColumnName:Violations_1_2_input_port" -> "core/column-rename1" [label="oldColumnName:Violations_1_2"]
+"newColumnName:Violation_Title_input_port" -> "core/column-rename1" [label="newColumnName:Violation_Title"]
+"oldColumnName:Violations_2_input_port" -> "core/column-rename2" [label="oldColumnName:Violations_2"]
+"newColumnName:Violation_Comments_input_port" -> "core/column-rename2" [label="newColumnName:Violation_Comments"]
+"col-name:Violation_Title_input_port" -> "core/text-transform4" [label="col-name:Violation_Title"]
+"expression:value.replace(/^\\*\\s+/,\"\")_input_port" -> "core/text-transform4" [label="expression:value.replace(/^\\*\\s+/,\"\")"]
+edge[fontname=Helvetica]
+}
