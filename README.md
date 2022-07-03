@@ -66,3 +66,18 @@ dot -Tpng geocode.gv > geocode.png
 
 ### Visualize
 > **TODO:** Documentation of queries specific to use case 1 (U1)
+
+## Schema
+
+Edit Information:
+
+```
+Come collaborate on my Lucidchart document!
+
+Join at https://lucid.app/join
+
+Enter Join ID
+PJQ P7F
+```
+
+![Schema](schema.png)
