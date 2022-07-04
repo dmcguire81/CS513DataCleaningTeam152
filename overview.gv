@@ -12,30 +12,49 @@ node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
 "repair_locations.py" [shape=record rankdir=LR label="{<f0> repair_locations.py |<f1> Python}"];
 "normalize.sql" [shape=record rankdir=LR label="{<f0> normalize.sql |<f1> SQLite}"];
 "Food_Inspections.twb" [shape=record rankdir=LR label="{<f0> Food_Inspections.twb |<f1> Tableau Desktop}"];
-edge[fontname=Helvetica]
-"partition_dataset.py" -> "clean_licensees_and_locations.json" [label="Food_Licensees_and_Locations.csv"]
-"partition_dataset.py" -> "clean_inspections.json" [label="Food_Licensee_Inspections.csv"]
-"partition_dataset.py" -> "clean_and_unnest_violations.json" [label="Food_Inspection_Violations.csv"]
-"clean_licensees_and_locations.json" -> "repair_locations.py" [label="Cleaned_Food_Licensees_and_Locations.csv"]
-"repair_locations.py" -> "normalize.sql" [label="Repaired_Food_Licensees_and_Locations.csv"]
-"clean_inspections.json" -> "normalize.sql" [label="Cleaned_Food_Licensee_Inspections.csv"]
-"clean_and_unnest_violations.json" -> "normalize.sql" [label="Cleaned_Unnested_Food_Inspection_Violations.csv"]
-"normalize.sql" -> "Food_Inspections.twb" [label="Normalized_Food_Inspections.sqlite"]
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+"Food_Inspections.csv"
+"Food_Licensees_and_Locations.csv"
+"Food_Licensee_Inspections.csv"
+"Food_Inspection_Violations.csv"
+"Cleaned_Food_Licensees_and_Locations.csv"
+"Repaired_Food_Licensees_and_Locations.csv"
+"Cleaned_Food_Licensee_Inspections.csv"
+"Cleaned_Unnested_Food_Inspection_Violations.csv"
+"Normalized_Food_Inspections.sqlite"
+"Food_Inspections.twbx"
+node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
+"partition_dataset.py" -> "Food_Licensees_and_Locations.csv"
+"partition_dataset.py" -> "Food_Licensee_Inspections.csv"
+"partition_dataset.py" -> "Food_Inspection_Violations.csv"
+"Food_Inspections.csv" -> "partition_dataset.py"
+"clean_licensees_and_locations.json" -> "Cleaned_Food_Licensees_and_Locations.csv"
+"Food_Licensees_and_Locations.csv" -> "clean_licensees_and_locations.json"
+"clean_inspections.json" -> "Cleaned_Food_Licensee_Inspections.csv"
+"Food_Licensee_Inspections.csv" -> "clean_inspections.json"
+"clean_and_unnest_violations.json" -> "Cleaned_Unnested_Food_Inspection_Violations.csv"
+"Food_Inspection_Violations.csv" -> "clean_and_unnest_violations.json"
+"repair_locations.py" -> "Repaired_Food_Licensees_and_Locations.csv"
+"Cleaned_Food_Licensees_and_Locations.csv" -> "repair_locations.py"
+"normalize.sql" -> "Normalized_Food_Inspections.sqlite"
+"Repaired_Food_Licensees_and_Locations.csv" -> "normalize.sql"
+"Cleaned_Food_Licensee_Inspections.csv" -> "normalize.sql"
+"Cleaned_Unnested_Food_Inspection_Violations.csv" -> "normalize.sql"
+"Food_Inspections.twb" -> "Food_Inspections.twbx"
+"Normalized_Food_Inspections.sqlite" -> "Food_Inspections.twb"
 }}
 subgraph cluster_input_ports_group_outer { label=""; color=white
 subgraph cluster_input_ports_group_inner { label=""; color=white
-node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
 "Food_Inspections.csv_input_port" [label=""]
 }}
 subgraph cluster_output_ports_group_outer { label=""; color=white
 subgraph cluster_output_ports_group_inner { label=""; color=white
-node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
 "Normalized_Food_Inspections.sqlite_output_port" [label=""]
 "Food_Inspections.twbx_output_port" [label=""]
 }}
-edge[fontname=Helvetica]
-"Food_Inspections.csv_input_port" -> "partition_dataset.py" [label="Food_Inspections.csv"]
-edge[fontname=Helvetica]
-"normalize.sql" -> "Normalized_Food_Inspections.sqlite_output_port" [label="Normalized_Food_Inspections.sqlite"]
-"Food_Inspections.twb" -> "Food_Inspections.twbx_output_port" [label="Food_Inspections.twbx"]
+"Food_Inspections.csv_input_port" -> "Food_Inspections.csv"
+"Normalized_Food_Inspections.sqlite" -> "Normalized_Food_Inspections.sqlite_output_port"
+"Food_Inspections.twbx" -> "Food_Inspections.twbx_output_port"
 }

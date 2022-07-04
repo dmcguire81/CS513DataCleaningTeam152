@@ -23,7 +23,7 @@ env/bin/pip install -r requirements.txt
 Generate as follows:
 
 ```bash
-yw graph -c extract.comment='#' -c graph.layout=TB overview.yw > overview.gv
+yw graph -c extract.comment='#' overview.yw > overview.gv
 # work around defects in tooling
 sed -i '' "s/{<f0> \"/{<f0> /g" overview.gv
 sed -i '' "s/\" |<f1>/ |<f1>/g" overview.gv
@@ -49,7 +49,7 @@ Generate as follows:
 
 ```bash
 or2yw -i violations.json -o violations.yw
-yw graph -c extract.comment='#' -c graph.layout=TB violations.yw > violations.gv
+yw graph -c extract.comment='#' violations.yw > violations.gv
 # work around defects in tooling
 sed -i '' "s/{<f0> \"/{<f0> /g" violations.gv
 sed -i '' "s/\" |<f1>/ |<f1>/g" violations.gv
