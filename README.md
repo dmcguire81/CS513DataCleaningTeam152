@@ -62,7 +62,18 @@ dot -Tpng geocode.gv > geocode.png
 ![Geocode](geocode.png)
 
 ### Normalize
-> **TODO:** Sub-workflow documention
+
+> **NOTE:** This sub-workflow is from a prototype, and is acting as a placeholder. Naming convention and generation instructions will be updated with the new implementation.
+
+Download from [CS513 Data Cleaning](https://uillinoisedu-my.sharepoint.com/:f:/g/personal/dmcguire_illinois_edu/Ek8ZzambYMZOoGirOveJarMBoXWml2Q6oSnMXG_cbYHleQ?e=OfO3ef)
+* `Food_Inspections.csv`
+* `Food_Inspections_Violations.csv`
+
+```sh
+sqlite3 Food_Inspections.sqlite
+sqlite> .read Food_Inspections.sql
+sqlite> .read Food_Inspections_Violations.sql
+```
 
 ### Visualize
 > **TODO:** Documentation of queries specific to use case 1 (U1)
