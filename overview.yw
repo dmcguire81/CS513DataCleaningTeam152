@@ -7,40 +7,40 @@
 # @BEGIN partition_dataset.py
 # @DESC Python
 # @IN Food_Inspections.csv @URI {food_inspections_csv_kaggle_uri}
-# @OUT Food_Licensees_and_Locations.csv
-# @OUT Food_Licensee_Inspections.csv
-# @OUT Food_Inspection_Violations.csv
+# @OUT food_licencees_and_locations @FILE Food_Licensees_and_Locations.csv
+# @OUT food_licensee_inspections @FILE Food_Licensee_Inspections.csv
+# @OUT food_inspection_violations @FILE Food_Inspection_Violations.csv
 # @END partition_dataset.py
 #
 # @BEGIN clean_licensees_and_locations.json
 # @DESC OpenRefine
-# @IN Food_Licensees_and_Locations.csv
-# @OUT Cleaned_Food_Licensees_and_Locations.csv
+# @IN food_licencees_and_locations @FILE Food_Licensees_and_Locations.csv
+# @OUT cleaned_food_licensees_and_locations @FILE Cleaned_Food_Licensees_and_Locations.csv
 # @END clean_licensees_and_locations.json
 # 
 # @BEGIN clean_inspections.json
 # @DESC OpenRefine
-# @IN Food_Licensee_Inspections.csv
-# @OUT Cleaned_Food_Licensee_Inspections.csv
+# @IN food_licensee_inspections @FILE Food_Licensee_Inspections.csv
+# @OUT cleaned_food_licensee_inpsections @FILE Cleaned_Food_Licensee_Inspections.csv
 # @END clean_inspections.json
 # 
 # @BEGIN clean_and_unnest_violations.json
 # @DESC OpenRefine
-# @IN Food_Inspection_Violations.csv
-# @OUT Cleaned_Unnested_Food_Inspection_Violations.csv
+# @IN food_inspection_violations @FILE Food_Inspection_Violations.csv
+# @OUT cleaned_unnested_food_inspection_violations @FILE Cleaned_Unnested_Food_Inspection_Violations.csv
 # @END clean_and_unnest_violations.json
 # 
 # @BEGIN repair_locations.py
 # @DESC Python
-# @IN Cleaned_Food_Licensees_and_Locations.csv
-# @OUT Repaired_Food_Licensees_and_Locations.csv
+# @IN cleaned_food_licensees_and_locations @FILE Cleaned_Food_Licensees_and_Locations.csv
+# @OUT repaired_food_licensees_and_locations @FILE Repaired_Food_Licensees_and_Locations.csv
 # @END repair_locations.py
 # 
 # @BEGIN normalize.sql
 # @DESC SQLite
-# @IN Repaired_Food_Licensees_and_Locations.csv
-# @IN Cleaned_Food_Licensee_Inspections.csv
-# @IN Cleaned_Unnested_Food_Inspection_Violations.csv
+# @IN repaired_food_licensees_and_locations @FILE Repaired_Food_Licensees_and_Locations.csv
+# @IN cleaned_food_licensee_inpsections @FILE Cleaned_Food_Licensee_Inspections.csv
+# @IN cleaned_unnested_food_inspection_violations @FILE Cleaned_Unnested_Food_Inspection_Violations.csv
 # @OUT Normalized_Food_Inspections.sqlite @URI {food_inspections_sqlite_box_uri}
 # @END normalize.sql
 # 
