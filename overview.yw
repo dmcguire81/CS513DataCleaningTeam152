@@ -1,9 +1,12 @@
 # @BEGIN Overview
-# @IN Food_Inspections.csv
+# @PARAM food_inspections_csv_kaggle_uri
+# @PARAM food_inspections_sqlite_box_uri
+# @PARAM food_inspections_tableau_online_uri
+# @IN Food_Inspections.csv @URI {food_inspections_csv_kaggle_uri}
 #
 # @BEGIN partition_dataset.py
 # @DESC Python
-# @IN Food_Inspections.csv
+# @IN Food_Inspections.csv @URI {food_inspections_csv_kaggle_uri}
 # @OUT Food_Licensees_and_Locations.csv
 # @OUT Food_Licensee_Inspections.csv
 # @OUT Food_Inspection_Violations.csv
@@ -38,15 +41,15 @@
 # @IN Repaired_Food_Licensees_and_Locations.csv
 # @IN Cleaned_Food_Licensee_Inspections.csv
 # @IN Cleaned_Unnested_Food_Inspection_Violations.csv
-# @OUT Normalized_Food_Inspections.sqlite
+# @OUT Normalized_Food_Inspections.sqlite @URI {food_inspections_sqlite_box_uri}
 # @END normalize.sql
 # 
 # @BEGIN Food_Inspections.twb
 # @DESC Tableau Desktop
 # @IN Normalized_Food_Inspections.sqlite
-# @OUT Food_Inspections.twbx
+# @OUT Food_Inspections.twbx @URI {food_inspections_tableau_online_uri}
 # @END Food_Inspections.twb
 #
-# @OUT Normalized_Food_Inspections.sqlite
-# @OUT Food_Inspections.twbx
+# @OUT Normalized_Food_Inspections.sqlite @URI {food_inspections_sqlite_box_uri}
+# @OUT Food_Inspections.twbx @URI {food_inspections_tableau_online_uri}
 # @END Overview

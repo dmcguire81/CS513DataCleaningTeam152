@@ -13,7 +13,7 @@ node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
 "normalize.sql" [shape=record rankdir=LR label="{<f0> normalize.sql |<f1> SQLite}"];
 "Food_Inspections.twb" [shape=record rankdir=LR label="{<f0> Food_Inspections.twb |<f1> Tableau Desktop}"];
 node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
-"Food_Inspections.csv"
+"Food_Inspections.csv" [shape=record rankdir=LR label="{<f0> Food_Inspections.csv |<f1> \{food_inspections_csv_kaggle_uri\}}"];
 "Food_Licensees_and_Locations.csv"
 "Food_Licensee_Inspections.csv"
 "Food_Inspection_Violations.csv"
@@ -21,8 +21,8 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 "Repaired_Food_Licensees_and_Locations.csv"
 "Cleaned_Food_Licensee_Inspections.csv"
 "Cleaned_Unnested_Food_Inspection_Violations.csv"
-"Normalized_Food_Inspections.sqlite"
-"Food_Inspections.twbx"
+"Normalized_Food_Inspections.sqlite" [shape=record rankdir=LR label="{<f0> Normalized_Food_Inspections.sqlite |<f1> \{food_inspections_sqlite_box_uri\}}"];
+"Food_Inspections.twbx" [shape=record rankdir=LR label="{<f0> Food_Inspections.twbx |<f1> \{food_inspections_tableau_online_uri\}}"];
 node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
 "partition_dataset.py" -> "Food_Licensees_and_Locations.csv"
 "partition_dataset.py" -> "Food_Licensee_Inspections.csv"
