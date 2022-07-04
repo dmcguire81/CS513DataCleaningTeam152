@@ -83,7 +83,6 @@ def geocode(full_address):
 # @OUT geocoding_output_file @URI file://{geocoding_output_filename}
 def main(food_inspections_input_filename, geocoding_output_filename):
     # @BEGIN read_food_inspections_input
-    # @param food_inspections_input_filename
     # @IN food_inspections_input_file @URI file://{food_inspections_input_filename}
     # @OUT food_inspections_df
     food_inspections_input_df = pd.read_csv(food_inspections_input_filename)
