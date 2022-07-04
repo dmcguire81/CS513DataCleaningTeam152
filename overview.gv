@@ -1,30 +1,41 @@
 digraph Workflow {
-    # Inputs/Outputs with YesWorkflow Styling
-    node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
-    "Food_Inspections.csv" [label=""]
-    "Food_Inspections.twbx (Tableau Online)" [label=""]
-
-    # Steps with YesWorkflow Styling
-    node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
-    edge[fontname=Helvetica]
-
-    # Partition
-    "Food_Inspections.csv" -> "partition_dataset.py" [label=" Food_Inspections.csv"]
-
-    # Clean & Regularize
-    "partition_dataset.py" -> "clean_licensees_and_locations.json (OpenRefine)" [label=" Food_Licensees_and_Locations.csv"]
-    "partition_dataset.py" -> "clean_inspections.json (OpenRefine)" [label=" Food_Licensee_Inspections.csv"]
-    "partition_dataset.py" -> "clean_and_unnest_violations.json (OpenRefine)" [label=" Food_Inspection_Violations.csv"]
-
-    # Repair
-    "clean_licensees_and_locations.json (OpenRefine)" -> "repair_locations.py" [label=" Cleaned_Food_Licensees_and_Locations.csv"]
-
-    # Normalize
-    "repair_locations.py" -> "normalize.sql (SQLite)" [label=" Repaired_Food_Licensees_and_Locations.csv"]
-    "clean_inspections.json (OpenRefine)" -> "normalize.sql (SQLite)" [label=" Cleaned_Food_Licensee_Inspections.csv"]
-    "clean_and_unnest_violations.json (OpenRefine)" -> "normalize.sql (SQLite)" [label=" Cleaned_Unnested_Food_Inspection_Violations.csv"]    
-
-    # Visualize (U1)
-    "normalize.sql (SQLite)" -> "Food_Inspections.twb (Tableau Desktop)" [label=" Normalized_Food_Inspections.sqlite", xlabel="(See ER Diagram for schema) "]
-    "Food_Inspections.twb (Tableau Desktop)" -> "Food_Inspections.twbx (Tableau Online)" [label=" Food_Inspections.twbx (Tableau Online)"]
+rankdir=TB
+fontname=Courier; fontsize=18; labelloc=t
+label=Overview
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; color=white
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+"partition_dataset.py" [shape=record rankdir=LR label="{<f0> partition_dataset.py |<f1> Python}"];
+"clean_licensees_and_locations.json" [shape=record rankdir=LR label="{<f0> clean_licensees_and_locations.json |<f1> OpenRefine}"];
+"clean_inspections.json" [shape=record rankdir=LR label="{<f0> clean_inspections.json |<f1> OpenRefine}"];
+"clean_and_unnest_violations.json" [shape=record rankdir=LR label="{<f0> clean_and_unnest_violations.json |<f1> OpenRefine}"];
+"repair_locations.py" [shape=record rankdir=LR label="{<f0> repair_locations.py |<f1> Python}"];
+"normalize.sql" [shape=record rankdir=LR label="{<f0> normalize.sql |<f1> SQLite}"];
+"Food_Inspections.twb" [shape=record rankdir=LR label="{<f0> Food_Inspections.twb |<f1> Tableau Desktop}"];
+edge[fontname=Helvetica]
+"partition_dataset.py" -> "clean_licensees_and_locations.json" [label="Food_Licensees_and_Locations.csv"]
+"partition_dataset.py" -> "clean_inspections.json" [label="Food_Licensee_Inspections.csv"]
+"partition_dataset.py" -> "clean_and_unnest_violations.json" [label="Food_Inspection_Violations.csv"]
+"clean_licensees_and_locations.json" -> "repair_locations.py" [label="Cleaned_Food_Licensees_and_Locations.csv"]
+"repair_locations.py" -> "normalize.sql" [label="Repaired_Food_Licensees_and_Locations.csv"]
+"clean_inspections.json" -> "normalize.sql" [label="Cleaned_Food_Licensee_Inspections.csv"]
+"clean_and_unnest_violations.json" -> "normalize.sql" [label="Cleaned_Unnested_Food_Inspection_Violations.csv"]
+"normalize.sql" -> "Food_Inspections.twb" [label="Normalized_Food_Inspections.sqlite"]
+}}
+subgraph cluster_input_ports_group_outer { label=""; color=white
+subgraph cluster_input_ports_group_inner { label=""; color=white
+node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
+"Food_Inspections.csv_input_port" [label=""]
+}}
+subgraph cluster_output_ports_group_outer { label=""; color=white
+subgraph cluster_output_ports_group_inner { label=""; color=white
+node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
+"Normalized_Food_Inspections.sqlite_output_port" [label=""]
+"Food_Inspections.twbx_output_port" [label=""]
+}}
+edge[fontname=Helvetica]
+"Food_Inspections.csv_input_port" -> "partition_dataset.py" [label="Food_Inspections.csv"]
+edge[fontname=Helvetica]
+"normalize.sql" -> "Normalized_Food_Inspections.sqlite_output_port" [label="Normalized_Food_Inspections.sqlite"]
+"Food_Inspections.twb" -> "Food_Inspections.twbx_output_port" [label="Food_Inspections.twbx"]
 }

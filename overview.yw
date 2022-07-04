@@ -1,0 +1,52 @@
+# @BEGIN Overview
+# @IN Food_Inspections.csv
+#
+# @BEGIN partition_dataset.py
+# @DESC Python
+# @IN Food_Inspections.csv
+# @OUT Food_Licensees_and_Locations.csv
+# @OUT Food_Licensee_Inspections.csv
+# @OUT Food_Inspection_Violations.csv
+# @END partition_dataset.py
+#
+# @BEGIN clean_licensees_and_locations.json
+# @DESC OpenRefine
+# @IN Food_Licensees_and_Locations.csv
+# @OUT Cleaned_Food_Licensees_and_Locations.csv
+# @END clean_licensees_and_locations.json
+# 
+# @BEGIN clean_inspections.json
+# @DESC OpenRefine
+# @IN Food_Licensee_Inspections.csv
+# @OUT Cleaned_Food_Licensee_Inspections.csv
+# @END clean_inspections.json
+# 
+# @BEGIN clean_and_unnest_violations.json
+# @DESC OpenRefine
+# @IN Food_Inspection_Violations.csv
+# @OUT Cleaned_Unnested_Food_Inspection_Violations.csv
+# @END clean_and_unnest_violations.json
+# 
+# @BEGIN repair_locations.py
+# @DESC Python
+# @IN Cleaned_Food_Licensees_and_Locations.csv
+# @OUT Repaired_Food_Licensees_and_Locations.csv
+# @END repair_locations.py
+# 
+# @BEGIN normalize.sql
+# @DESC SQLite
+# @IN Repaired_Food_Licensees_and_Locations.csv
+# @IN Cleaned_Food_Licensee_Inspections.csv
+# @IN Cleaned_Unnested_Food_Inspection_Violations.csv
+# @OUT Normalized_Food_Inspections.sqlite
+# @END normalize.sql
+# 
+# @BEGIN Food_Inspections.twb
+# @DESC Tableau Desktop
+# @IN Normalized_Food_Inspections.sqlite
+# @OUT Food_Inspections.twbx
+# @END Food_Inspections.twb
+#
+# @OUT Normalized_Food_Inspections.sqlite
+# @OUT Food_Inspections.twbx
+# @END Overview

@@ -20,7 +20,15 @@ env/bin/pip install -r requirements.txt
 
 ### Overview
 
-Generate with `dot -Tpng overview.gv > overview.png`.
+Generate as follows:
+
+```bash
+yw graph -c extract.comment='#' -c graph.layout=TB overview.yw > overview.gv
+# work around defects in tooling
+sed -i '' "s/{<f0> \"/{<f0> /g" overview.gv
+sed -i '' "s/\" |<f1>/ |<f1>/g" overview.gv
+dot -Tpng overview.gv > overview.png
+```
 
 ![Overview](overview.png)
 
@@ -43,8 +51,8 @@ Generate as follows:
 or2yw -i violations.json -o violations.yw
 yw graph -c extract.comment='#' -c graph.layout=TB violations.yw > violations.gv
 # work around defects in tooling
-sed -i "s/{{<f0> \"/{{<f0> \'/g" violations.gv
-sed -i "s/\" |<f1>/\' |<f1>/g" violations.gv
+sed -i '' "s/{<f0> \"/{<f0> /g" violations.gv
+sed -i '' "s/\" |<f1>/ |<f1>/g" violations.gv
 dot -Tpng violations.gv > violations.png
 ```
 
