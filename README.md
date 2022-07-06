@@ -50,22 +50,22 @@ dot -Tpng partition_dataset.gv > partition_dataset.png
 ### Clean Inspections
 > **TODO:** Sub-workflow documention
 
-### Clean Violations
-
-> **NOTE:** This sub-workflow is from a prototype, and is acting as a placeholder. Naming convention and generation instructions will be updated with the new implementation.
+### Clean and Unnest Violations
 
 Generate as follows:
 
 ```bash
-or2yw -i violations.json -o violations.yw
-yw graph -c extract.comment='#' violations.yw > violations.gv
+or2yw -title "clean_and_unnest_violations" -i clean_and_unnest_violations.json -o clean_and_unnest_violations.yw
+yw graph -c extract.comment='#' clean_and_unnest_violations.yw > clean_and_unnest_violations.gv
 # work around defects in tooling
-sed -i '' "s/{<f0> \"/{<f0> /g" violations.gv
-sed -i '' "s/\" |<f1>/ |<f1>/g" violations.gv
-dot -Tpng violations.gv > violations.png
+sed -i '' "s/{<f0> \"/{<f0> /g" clean_and_unnest_violations.gv
+sed -i '' "s/\" |<f1>/ |<f1>/g" clean_and_unnest_violations.gv
+dot -Tpng clean_and_unnest_violations.gv > clean_and_unnest_violations.png
 ```
 
-![Violations](violations.png)
+> **TODO:** Figure out why `core/multivalued-cell-split` and `core/fill-down` were ommitted from the diagram.
+
+![Clean and Unnest Violations](clean_and_unnest_violations.png)
 
 ### Repair Locations
 

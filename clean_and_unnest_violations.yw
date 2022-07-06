@@ -1,0 +1,85 @@
+#@begin clean_and_unnest_violations #@desc Linear OpenRefine Workflow
+#@param oldColumnName:Violations_1_2
+#@param removeOriginalColumn:True
+#@param separator:"."
+#@param newColumnName:Violation_Comments
+#@param col-name:Violation_ID
+#@param expression:value.trim()
+#@param col-name:Violations_1
+#@param col-name:Violation_Title
+#@param expression:value.toNumber()
+#@param newColumnName:Violation_ID
+#@param oldColumnName:Violations_1_1
+#@param expression:"isBlank(value)"
+#@param expression:value.replace(/\\s+/,'_')
+#@param col-name:Violation_Comments
+#@param col-name:Violations
+#@param separator:"-_Comments:"
+#@param col-name:Inspection_ID
+#@param newColumnName:Violation_Title
+#@param oldColumnName:Violations_2
+#@in table0
+#@out table12
+#@begin core/text-transform0#@desc Text transform on cells in column Inspection ID using expression value.toNumber()
+#@param col-name:Inspection_ID
+#@param expression:value.toNumber()
+#@in table0
+#@out table1
+#@end core/text-transform0
+#@begin core/column-split0#@desc Split column Violations by separator
+#@param col-name:Violations
+#@param separator:"-_Comments:"
+#@param removeOriginalColumn:True
+#@in table1
+#@out table2
+#@end core/column-split0
+#@begin core/column-split1#@desc Split column Violations 1 by separator
+#@param col-name:Violations_1
+#@param separator:"."
+#@param removeOriginalColumn:True
+#@in table2
+#@out table3
+#@end core/column-split1
+#@begin core/column-rename0#@desc Rename column Violations 1 1 to Violation ID
+#@param oldColumnName:Violations_1_1
+#@param newColumnName:Violation_ID
+#@in table3
+#@out table4
+#@end core/column-rename0
+#@begin core/column-rename1#@desc Rename column Violations 1 2 to Violation Title
+#@param oldColumnName:Violations_1_2
+#@param newColumnName:Violation_Title
+#@in table4
+#@out table5
+#@end core/column-rename1
+#@begin core/column-rename2#@desc Rename column Violations 2 to Violation Comments
+#@param oldColumnName:Violations_2
+#@param newColumnName:Violation_Comments
+#@in table5
+#@out table6
+#@end core/column-rename2
+#@begin core/row-removal0#@desc Remove rows
+#@param col-name:Violation_ID
+#@param expression:"isBlank(value)"
+#@in table6
+#@out table7
+#@end core/row-removal0
+#@begin core/text-transform1#@desc Text transform on cells in column Violation Title using expression value.trim()
+#@param col-name:Violation_Title
+#@param expression:value.trim()
+#@in table7
+#@out table8
+#@end core/text-transform1
+#@begin core/text-transform2#@desc Text transform on cells in column Violation Comments using expression value.trim()
+#@param col-name:Violation_Comments
+#@param expression:value.trim()
+#@in table8
+#@out table9
+#@end core/text-transform2
+#@begin core/text-transform3#@desc Text transform on cells in column Violation Comments using expression value.replace(/\\s+/,' ')
+#@param col-name:Violation_Comments
+#@param expression:value.replace(/\\s+/,'_')
+#@in table9
+#@out table10
+#@end core/text-transform3
+#@end clean_and_unnest_violations
