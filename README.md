@@ -48,7 +48,19 @@ dot -Tpng partition_dataset.gv > partition_dataset.png
 > **TODO:** Sub-workflow documention
 
 ### Clean Inspections
-> **TODO:** Sub-workflow documention
+
+Generate as follows:
+
+```bash
+or2yw -title "clean_inspections" -i clean_inspections.json -o clean_inspections.yw
+yw graph -c extract.comment='#' clean_inspections.yw > clean_inspections.gv
+# work around defects in tooling
+sed -i '' "s/{<f0> \"/{<f0> /g" clean_inspections.gv
+sed -i '' "s/\" |<f1>/ |<f1>/g" clean_inspections.gv
+dot -Tpng clean_inspections.gv > clean_inspections.png
+```
+
+![Clean Inspections](clean_inspections.png)
 
 ### Clean and Unnest Violations
 

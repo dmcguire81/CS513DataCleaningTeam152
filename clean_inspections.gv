@@ -1,0 +1,93 @@
+digraph Workflow {
+rankdir=TB
+fontname=Courier; fontsize=18; labelloc=t
+label=clean_inspections
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; color=white
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+"core/text-transform0#" [shape=record rankdir=LR label="{<f0> core/text-transform0# |<f1> Text transform on cells in column Inspection ID using expression value.toNumber()}"];
+"core/text-transform1#" [shape=record rankdir=LR label="{<f0> core/text-transform1# |<f1> Text transform on cells in column License # using expression null}"];
+"core/text-transform2#" [shape=record rankdir=LR label="{<f0> core/text-transform2# |<f1> Text transform on cells in column License # using expression value.toNumber()}"];
+"core/text-transform3#" [shape=record rankdir=LR label="{<f0> core/text-transform3# |<f1> Text transform on cells in column Risk using expression null}"];
+"core/text-transform4#" [shape=record rankdir=LR label="{<f0> core/text-transform4# |<f1> Text transform on cells in column Inspection Date using expression value.toDate()}"];
+"core/text-transform5#" [shape=record rankdir=LR label="{<f0> core/text-transform5# |<f1> Text transform on cells in column Inspection Date using expression value.toString()}"];
+"core/text-transform6#" [shape=record rankdir=LR label="{<f0> core/text-transform6# |<f1> Text transform on cells in column Inspection Date using expression jython\:return value.split(\"T\")[0]}"];
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+table7
+table0
+table1
+table2
+table3
+table4
+table5
+table6
+node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
+"col-name:Inspection_ID"
+"expression:value.toNumber()"
+"col-name:License_#"
+"expression:null"
+"col-name:Risk"
+"col-name:Inspection_Date"
+"expression:value.toDate()"
+"expression:value.toString()"
+"expression:jython:return_value.split(\"T\")[0]"
+"core/text-transform0#" -> table1
+"col-name:Inspection_ID" -> "core/text-transform0#"
+"expression:value.toNumber()" -> "core/text-transform0#"
+table0 -> "core/text-transform0#"
+"core/text-transform1#" -> table2
+"col-name:License_#" -> "core/text-transform1#"
+"expression:null" -> "core/text-transform1#"
+table1 -> "core/text-transform1#"
+"core/text-transform2#" -> table3
+"col-name:License_#" -> "core/text-transform2#"
+"expression:value.toNumber()" -> "core/text-transform2#"
+table2 -> "core/text-transform2#"
+"core/text-transform3#" -> table4
+"col-name:Risk" -> "core/text-transform3#"
+"expression:null" -> "core/text-transform3#"
+table3 -> "core/text-transform3#"
+"core/text-transform4#" -> table5
+"col-name:Inspection_Date" -> "core/text-transform4#"
+"expression:value.toDate()" -> "core/text-transform4#"
+table4 -> "core/text-transform4#"
+"core/text-transform5#" -> table6
+"col-name:Inspection_Date" -> "core/text-transform5#"
+"expression:value.toString()" -> "core/text-transform5#"
+table5 -> "core/text-transform5#"
+"core/text-transform6#" -> table7
+"col-name:Inspection_Date" -> "core/text-transform6#"
+"expression:jython:return_value.split(\"T\")[0]" -> "core/text-transform6#"
+table6 -> "core/text-transform6#"
+}}
+subgraph cluster_input_ports_group_outer { label=""; color=white
+subgraph cluster_input_ports_group_inner { label=""; color=white
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+"expression:jython:return_value.split(\"T\")[0]_input_port" [label=""]
+"col-name:Inspection_Date_input_port" [label=""]
+"col-name:Risk_input_port" [label=""]
+"expression:value.toNumber()_input_port" [label=""]
+"col-name:License_#_input_port" [label=""]
+"expression:value.toDate()_input_port" [label=""]
+"expression:null_input_port" [label=""]
+"col-name:Inspection_ID_input_port" [label=""]
+"expression:value.toString()_input_port" [label=""]
+table0_input_port [label=""]
+}}
+subgraph cluster_output_ports_group_outer { label=""; color=white
+subgraph cluster_output_ports_group_inner { label=""; color=white
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+table7_output_port [label=""]
+}}
+"expression:jython:return_value.split(\"T\")[0]_input_port" -> "expression:jython:return_value.split(\"T\")[0]"
+"col-name:Inspection_Date_input_port" -> "col-name:Inspection_Date"
+"col-name:Risk_input_port" -> "col-name:Risk"
+"expression:value.toNumber()_input_port" -> "expression:value.toNumber()"
+"col-name:License_#_input_port" -> "col-name:License_#"
+"expression:value.toDate()_input_port" -> "expression:value.toDate()"
+"expression:null_input_port" -> "expression:null"
+"col-name:Inspection_ID_input_port" -> "col-name:Inspection_ID"
+"expression:value.toString()_input_port" -> "expression:value.toString()"
+table0_input_port -> table0
+table7 -> table7_output_port
+}
