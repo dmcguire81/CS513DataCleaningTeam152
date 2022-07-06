@@ -10,7 +10,7 @@ import pandas as pd
 # @OUT food_inspection_violations_file @FILE {food_inspection_violations_filename}
 def partition_dataset(food_inspections_filename, food_licensees_and_locations_filename, food_licensee_inspections_filename, food_inspection_violations_filename):
     # Inspection ID,DBA Name,AKA Name,License #,Facility Type,Risk,Address,City,State,Zip,Inspection Date,Inspection Type,Results,Violations,Latitude,Longitude,Location
-    food_inspections_df = pd.read_csv(food_inspections_filename)
+    food_inspections_df = pd.read_csv(food_inspections_filename, dtype={"License #": "str", "Zip": "str"})
 
     # @BEGIN create_food_licensees_and_locations
     # @DESC CREATE TABLE Food_Licensees_And_Locations AS SELECT `DBA Name`, `AKA Name`, `License #`, `Facility Type`, `Address`, `City`, `State`, `Zip`, `Latitude`, `Longitude` FROM Food_Inspections
