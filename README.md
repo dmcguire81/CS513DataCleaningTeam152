@@ -44,8 +44,20 @@ dot -Tpng partition_dataset.gv > partition_dataset.png
 
 ![Partition Dataset](partition_dataset.png)
 
-### Clean Locations
-> **TODO:** Sub-workflow documention
+### Clean Licensees and Locations
+
+Generate as follows:
+
+```bash
+or2yw -title "clean_licensees_and_locations" -i clean_licensees_and_locations.json -o clean_licensees_and_locations.yw
+yw graph -c extract.comment='#' clean_licensees_and_locations.yw > clean_licensees_and_locations.gv
+# work around defects in tooling
+sed -i '' "s/{<f0> \"/{<f0> /g" clean_licensees_and_locations.gv
+sed -i '' "s/\" |<f1>/ |<f1>/g" clean_licensees_and_locations.gv
+dot -Tpng clean_licensees_and_locations.gv > clean_licensees_and_locations.png
+```
+
+![Clean Licensees and Locations](clean_licensees_and_locations.png)
 
 ### Clean Inspections
 

@@ -1,0 +1,105 @@
+#@begin clean_licensees_and_locations #@desc Linear OpenRefine Workflow
+#@param col-name:AKA_Name
+#@param col-name:DBA_Name
+#@param expression:null
+#@param expression:value.toNumber()
+#@param col-name:State
+#@param col-name:City
+#@param expression:jython:return_"IL"
+#@param col-name:License_#
+#@in table0
+#@out table18
+#@begin core/mass-edit0#@desc Mass edit cells in column DBA Name
+#@param col-name:DBA_Name
+#@in table0
+#@out table1
+#@end core/mass-edit0
+#@begin core/mass-edit1#@desc Mass edit cells in column DBA Name
+#@param col-name:DBA_Name
+#@in table1
+#@out table2
+#@end core/mass-edit1
+#@begin core/mass-edit2#@desc Mass edit cells in column DBA Name
+#@param col-name:DBA_Name
+#@in table2
+#@out table3
+#@end core/mass-edit2
+#@begin core/mass-edit3#@desc Mass edit cells in column AKA Name
+#@param col-name:AKA_Name
+#@in table3
+#@out table4
+#@end core/mass-edit3
+#@begin core/mass-edit4#@desc Mass edit cells in column AKA Name
+#@param col-name:AKA_Name
+#@in table4
+#@out table5
+#@end core/mass-edit4
+#@begin core/mass-edit5#@desc Mass edit cells in column AKA Name
+#@param col-name:AKA_Name
+#@in table5
+#@out table6
+#@end core/mass-edit5
+#@begin core/mass-edit6#@desc Mass edit cells in column AKA Name
+#@param col-name:AKA_Name
+#@in table6
+#@out table7
+#@end core/mass-edit6
+#@begin core/mass-edit7#@desc Mass edit cells in column AKA Name
+#@param col-name:AKA_Name
+#@in table7
+#@out table8
+#@end core/mass-edit7
+#@begin core/mass-edit8#@desc Mass edit cells in column AKA Name
+#@param col-name:AKA_Name
+#@in table8
+#@out table9
+#@end core/mass-edit8
+#@begin core/text-transform0#@desc Text transform on cells in column License # using expression null
+#@param col-name:License_#
+#@param expression:null
+#@in table9
+#@out table10
+#@end core/text-transform0
+#@begin core/text-transform1#@desc Text transform on cells in column License # using expression value.toNumber()
+#@param col-name:License_#
+#@param expression:value.toNumber()
+#@in table10
+#@out table11
+#@end core/text-transform1
+#@begin core/mass-edit9#@desc Mass edit cells in column City
+#@param col-name:City
+#@in table11
+#@out table12
+#@end core/mass-edit9
+#@begin core/mass-edit10#@desc Mass edit cells in column City
+#@param col-name:City
+#@in table12
+#@out table13
+#@end core/mass-edit10
+#@begin core/mass-edit11#@desc Mass edit cells in column City
+#@param col-name:City
+#@in table13
+#@out table14
+#@end core/mass-edit11
+#@begin core/mass-edit12#@desc Mass edit cells in column City
+#@param col-name:City
+#@in table14
+#@out table15
+#@end core/mass-edit12
+#@begin core/mass-edit13#@desc Mass edit cells in column City
+#@param col-name:City
+#@in table15
+#@out table16
+#@end core/mass-edit13
+#@begin core/mass-edit14#@desc Mass edit cells in column City
+#@param col-name:City
+#@in table16
+#@out table17
+#@end core/mass-edit14
+#@begin core/text-transform2#@desc Text transform on cells in column State using expression jython:return \"IL\"
+#@param col-name:State
+#@param expression:jython:return_"IL"
+#@in table17
+#@out table18
+#@end core/text-transform2
+#@end clean_licensees_and_locations

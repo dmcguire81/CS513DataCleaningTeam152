@@ -1,0 +1,141 @@
+digraph Workflow {
+rankdir=TB
+fontname=Courier; fontsize=18; labelloc=t
+label=clean_licensees_and_locations
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; color=white
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+"core/mass-edit0#" [shape=record rankdir=LR label="{<f0> core/mass-edit0# |<f1> Mass edit cells in column DBA Name}"];
+"core/mass-edit1#" [shape=record rankdir=LR label="{<f0> core/mass-edit1# |<f1> Mass edit cells in column DBA Name}"];
+"core/mass-edit2#" [shape=record rankdir=LR label="{<f0> core/mass-edit2# |<f1> Mass edit cells in column DBA Name}"];
+"core/mass-edit3#" [shape=record rankdir=LR label="{<f0> core/mass-edit3# |<f1> Mass edit cells in column AKA Name}"];
+"core/mass-edit4#" [shape=record rankdir=LR label="{<f0> core/mass-edit4# |<f1> Mass edit cells in column AKA Name}"];
+"core/mass-edit5#" [shape=record rankdir=LR label="{<f0> core/mass-edit5# |<f1> Mass edit cells in column AKA Name}"];
+"core/mass-edit6#" [shape=record rankdir=LR label="{<f0> core/mass-edit6# |<f1> Mass edit cells in column AKA Name}"];
+"core/mass-edit7#" [shape=record rankdir=LR label="{<f0> core/mass-edit7# |<f1> Mass edit cells in column AKA Name}"];
+"core/mass-edit8#" [shape=record rankdir=LR label="{<f0> core/mass-edit8# |<f1> Mass edit cells in column AKA Name}"];
+"core/text-transform0#" [shape=record rankdir=LR label="{<f0> core/text-transform0# |<f1> Text transform on cells in column License # using expression null}"];
+"core/text-transform1#" [shape=record rankdir=LR label="{<f0> core/text-transform1# |<f1> Text transform on cells in column License # using expression value.toNumber()}"];
+"core/mass-edit9#" [shape=record rankdir=LR label="{<f0> core/mass-edit9# |<f1> Mass edit cells in column City}"];
+"core/mass-edit10#" [shape=record rankdir=LR label="{<f0> core/mass-edit10# |<f1> Mass edit cells in column City}"];
+"core/mass-edit11#" [shape=record rankdir=LR label="{<f0> core/mass-edit11# |<f1> Mass edit cells in column City}"];
+"core/mass-edit12#" [shape=record rankdir=LR label="{<f0> core/mass-edit12# |<f1> Mass edit cells in column City}"];
+"core/mass-edit13#" [shape=record rankdir=LR label="{<f0> core/mass-edit13# |<f1> Mass edit cells in column City}"];
+"core/mass-edit14#" [shape=record rankdir=LR label="{<f0> core/mass-edit14# |<f1> Mass edit cells in column City}"];
+"core/text-transform2#" [shape=record rankdir=LR label="{<f0> core/text-transform2# |<f1> Text transform on cells in column State using expression jython\:return \"IL\"}"];
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+table18
+table0
+table1
+table2
+table3
+table4
+table5
+table6
+table7
+table8
+table9
+table10
+table11
+table12
+table13
+table14
+table15
+table16
+table17
+node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
+"col-name:DBA_Name"
+"col-name:AKA_Name"
+"col-name:License_#"
+"expression:null"
+"expression:value.toNumber()"
+"col-name:City"
+"col-name:State"
+"expression:jython:return_\"IL\""
+"core/mass-edit0#" -> table1
+"col-name:DBA_Name" -> "core/mass-edit0#"
+table0 -> "core/mass-edit0#"
+"core/mass-edit1#" -> table2
+"col-name:DBA_Name" -> "core/mass-edit1#"
+table1 -> "core/mass-edit1#"
+"core/mass-edit2#" -> table3
+"col-name:DBA_Name" -> "core/mass-edit2#"
+table2 -> "core/mass-edit2#"
+"core/mass-edit3#" -> table4
+"col-name:AKA_Name" -> "core/mass-edit3#"
+table3 -> "core/mass-edit3#"
+"core/mass-edit4#" -> table5
+"col-name:AKA_Name" -> "core/mass-edit4#"
+table4 -> "core/mass-edit4#"
+"core/mass-edit5#" -> table6
+"col-name:AKA_Name" -> "core/mass-edit5#"
+table5 -> "core/mass-edit5#"
+"core/mass-edit6#" -> table7
+"col-name:AKA_Name" -> "core/mass-edit6#"
+table6 -> "core/mass-edit6#"
+"core/mass-edit7#" -> table8
+"col-name:AKA_Name" -> "core/mass-edit7#"
+table7 -> "core/mass-edit7#"
+"core/mass-edit8#" -> table9
+"col-name:AKA_Name" -> "core/mass-edit8#"
+table8 -> "core/mass-edit8#"
+"core/text-transform0#" -> table10
+"col-name:License_#" -> "core/text-transform0#"
+"expression:null" -> "core/text-transform0#"
+table9 -> "core/text-transform0#"
+"core/text-transform1#" -> table11
+"col-name:License_#" -> "core/text-transform1#"
+"expression:value.toNumber()" -> "core/text-transform1#"
+table10 -> "core/text-transform1#"
+"core/mass-edit9#" -> table12
+"col-name:City" -> "core/mass-edit9#"
+table11 -> "core/mass-edit9#"
+"core/mass-edit10#" -> table13
+"col-name:City" -> "core/mass-edit10#"
+table12 -> "core/mass-edit10#"
+"core/mass-edit11#" -> table14
+"col-name:City" -> "core/mass-edit11#"
+table13 -> "core/mass-edit11#"
+"core/mass-edit12#" -> table15
+"col-name:City" -> "core/mass-edit12#"
+table14 -> "core/mass-edit12#"
+"core/mass-edit13#" -> table16
+"col-name:City" -> "core/mass-edit13#"
+table15 -> "core/mass-edit13#"
+"core/mass-edit14#" -> table17
+"col-name:City" -> "core/mass-edit14#"
+table16 -> "core/mass-edit14#"
+"core/text-transform2#" -> table18
+"col-name:State" -> "core/text-transform2#"
+"expression:jython:return_\"IL\"" -> "core/text-transform2#"
+table17 -> "core/text-transform2#"
+}}
+subgraph cluster_input_ports_group_outer { label=""; color=white
+subgraph cluster_input_ports_group_inner { label=""; color=white
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+"col-name:AKA_Name_input_port" [label=""]
+"col-name:DBA_Name_input_port" [label=""]
+"expression:null_input_port" [label=""]
+"expression:value.toNumber()_input_port" [label=""]
+"col-name:State_input_port" [label=""]
+"col-name:City_input_port" [label=""]
+"expression:jython:return_\"IL\"_input_port" [label=""]
+"col-name:License_#_input_port" [label=""]
+table0_input_port [label=""]
+}}
+subgraph cluster_output_ports_group_outer { label=""; color=white
+subgraph cluster_output_ports_group_inner { label=""; color=white
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+table18_output_port [label=""]
+}}
+"col-name:AKA_Name_input_port" -> "col-name:AKA_Name"
+"col-name:DBA_Name_input_port" -> "col-name:DBA_Name"
+"expression:null_input_port" -> "expression:null"
+"expression:value.toNumber()_input_port" -> "expression:value.toNumber()"
+"col-name:State_input_port" -> "col-name:State"
+"col-name:City_input_port" -> "col-name:City"
+"expression:jython:return_\"IL\"_input_port" -> "expression:jython:return_\"IL\""
+"col-name:License_#_input_port" -> "col-name:License_#"
+table0_input_port -> table0
+table18 -> table18_output_port
+}
