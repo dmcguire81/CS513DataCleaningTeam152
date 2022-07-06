@@ -33,7 +33,16 @@ dot -Tpng overview.gv > overview.png
 ![Overview](overview.png)
 
 ### Partition Dataset
-> **TODO:** Sub-workflow documention
+
+Generate as follows:
+
+```bash
+# Note the customization to support long descriptions
+yw graph -c extract.comment='#' -c graph.layout=LR -c graph.view=PROCESS partition_dataset.py > partition_dataset.gv
+dot -Tpng partition_dataset.gv > partition_dataset.png
+```
+
+![Partition Dataset](partition_dataset.png)
 
 ### Clean Locations
 > **TODO:** Sub-workflow documention

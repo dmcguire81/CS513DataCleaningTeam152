@@ -1,0 +1,33 @@
+digraph Workflow {
+rankdir=LR
+fontname=Courier; fontsize=18; labelloc=t
+label=partition_dataset
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; color=white
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+create_food_licensees_and_locations [shape=record rankdir=LR label="{{<f0> create_food_licensees_and_locations |<f1> CREATE TABLE Food_Licensees_And_Locations AS SELECT `DBA Name`, `AKA Name`, `License #`, `Facility Type`, `Address`, `City`, `State`, `Zip`, `Latitude`, `Longitude` FROM Food_Inspections}}"];
+create_food_licensee_inspections [shape=record rankdir=LR label="{{<f0> create_food_licensee_inspections |<f1> CREATE TABLE Food_Licensee_Inspections AS SELECT `Inspection ID`, `License #`, `Risk`, `Inspection Date`, `Inspection Type`, `Results` FROM Food_Inspections}}"];
+create_food_inspection_violations [shape=record rankdir=LR label="{{<f0> create_food_inspection_violations |<f1> CREATE TABLE Food_Inspection_Violations AS SELECT `Inspection ID`, `Violations` FROM Food_Inspections}}"];
+edge[fontname=Helvetica]
+}}
+subgraph cluster_input_ports_group_outer { label=""; color=white
+subgraph cluster_input_ports_group_inner { label=""; color=white
+node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
+food_inspections_file_input_port [label=""]
+}}
+subgraph cluster_output_ports_group_outer { label=""; color=white
+subgraph cluster_output_ports_group_inner { label=""; color=white
+node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
+food_licensees_and_locations_file_output_port [label=""]
+food_licensee_inspections_file_output_port [label=""]
+food_inspection_violations_file_output_port [label=""]
+}}
+edge[fontname=Helvetica]
+food_inspections_file_input_port -> create_food_licensees_and_locations [label=food_inspections_file]
+food_inspections_file_input_port -> create_food_licensee_inspections [label=food_inspections_file]
+food_inspections_file_input_port -> create_food_inspection_violations [label=food_inspections_file]
+edge[fontname=Helvetica]
+create_food_licensees_and_locations -> food_licensees_and_locations_file_output_port [label=food_licensees_and_locations_file]
+create_food_licensee_inspections -> food_licensee_inspections_file_output_port [label=food_licensee_inspections_file]
+create_food_inspection_violations -> food_inspection_violations_file_output_port [label=food_inspection_violations_file]
+}
