@@ -107,12 +107,14 @@ dot -Tpng geocode.gv > geocode.png
 > **NOTE:** This sub-workflow is from a prototype, and is acting as a placeholder. Naming convention and generation instructions will be updated with the new implementation.
 
 Download from [CS513 Data Cleaning](https://uillinoisedu-my.sharepoint.com/:f:/g/personal/dmcguire_illinois_edu/Ek8ZzambYMZOoGirOveJarMBoXWml2Q6oSnMXG_cbYHleQ?e=OfO3ef)
+* `Food_Inspections.csv` (original)
 * `Cleaned_Food_Licensee_Inspections.csv`
 * `Cleaned_Food_Licensees_and_Locations.csv`
 * `Cleaned_and_Unnested_Food_Inspection_Violations.csv`
 
 ```sh
 sqlite3 Food_Inspections.sqlite
+sqlite> .read Food_Inspections.sql
 sqlite> .read Cleaned_Food_Licensee_Inspections.sql
 sqlite> .read Cleaned_Food_Licensees_and_Locations.sql
 sqlite> .read Cleaned_and_Unnested_Food_Inspection_Violations.sql
