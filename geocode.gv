@@ -1,5 +1,5 @@
 digraph Workflow {
-rankdir=LR
+rankdir=TB
 fontname=Courier; fontsize=18; labelloc=t
 label=main
 subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
@@ -13,33 +13,48 @@ extract_location_coordinates
 reverse_geocode_locations
 join_geocoding_results
 write_geocoding_output
-edge[fontname=Helvetica]
-read_food_inspections_input -> extract_inspection_ids [label=food_inspections_df]
-read_food_inspections_input -> extract_address_parts [label=food_inspections_df]
-read_food_inspections_input -> extract_location_coordinates [label=food_inspections_df]
-extract_address_parts -> geocode_addresses [label=address_parts_df]
-extract_address_parts -> reverse_geocode_locations [label=address_parts_df]
-geocode_addresses -> extract_location_coordinates [label=location_df]
-geocode_addresses -> join_geocoding_results [label=location_df]
-extract_location_coordinates -> reverse_geocode_locations [label=location_coordinates_df]
-extract_inspection_ids -> join_geocoding_results [label=inspection_ids]
-reverse_geocode_locations -> join_geocoding_results [label=address_df]
-join_geocoding_results -> write_geocoding_output [label=geocoding_df]
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+geocoding_output_file [shape=record rankdir=LR label="{<f0> geocoding_output_file |<f1> file\://\{geocoding_output_filename\}}"];
+food_inspections_input_file [shape=record rankdir=LR label="{<f0> food_inspections_input_file |<f1> file\://\{food_inspections_input_filename\}}"];
+food_inspections_df
+address_parts_df
+location_df
+location_coordinates_df
+inspection_ids
+address_df
+geocoding_df
+node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
+read_food_inspections_input -> food_inspections_df
+food_inspections_input_file -> read_food_inspections_input
+extract_inspection_ids -> inspection_ids
+food_inspections_df -> extract_inspection_ids
+extract_address_parts -> address_parts_df
+food_inspections_df -> extract_address_parts
+geocode_addresses -> location_df
+address_parts_df -> geocode_addresses
+extract_location_coordinates -> location_coordinates_df
+food_inspections_df -> extract_location_coordinates
+location_df -> extract_location_coordinates
+reverse_geocode_locations -> address_df
+location_coordinates_df -> reverse_geocode_locations
+address_parts_df -> reverse_geocode_locations
+join_geocoding_results -> geocoding_df
+inspection_ids -> join_geocoding_results
+address_df -> join_geocoding_results
+location_df -> join_geocoding_results
+write_geocoding_output -> geocoding_output_file
+geocoding_df -> write_geocoding_output
 }}
 subgraph cluster_input_ports_group_outer { label=""; color=white
 subgraph cluster_input_ports_group_inner { label=""; color=white
-node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
-food_inspections_input_filename_input_port [label=""]
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
 food_inspections_input_file_input_port [label=""]
 }}
 subgraph cluster_output_ports_group_outer { label=""; color=white
 subgraph cluster_output_ports_group_inner { label=""; color=white
-node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Courier width=0.2]
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
 geocoding_output_file_output_port [label=""]
 }}
-edge[fontname=Helvetica]
-food_inspections_input_filename_input_port -> read_food_inspections_input [label=food_inspections_input_filename]
-food_inspections_input_file_input_port -> read_food_inspections_input [label=food_inspections_input_file]
-edge[fontname=Helvetica]
-write_geocoding_output -> geocoding_output_file_output_port [label=geocoding_output_file]
+food_inspections_input_file_input_port -> food_inspections_input_file
+geocoding_output_file -> geocoding_output_file_output_port
 }

@@ -1,3 +1,4 @@
 google_api.key
 *.csv
-*.png
+*.twbr
+*.sqlite
