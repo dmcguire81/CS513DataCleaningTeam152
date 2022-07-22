@@ -1,0 +1,844 @@
+[
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [
+                {
+                    "type": "range",
+                    "name": "DBA Name",
+                    "expression": "grel:facetCount(value, \"value\", \"DBA Name\")",
+                    "columnName": "DBA Name",
+                    "from": 100,
+                    "to": 2200,
+                    "selectNumeric": true,
+                    "selectNonNumeric": true,
+                    "selectBlank": true,
+                    "selectError": true
+                }
+            ],
+            "mode": "row-based"
+        },
+        "columnName": "DBA Name",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "MCDONALD'S",
+                    "MCDONALDS"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "MCDONALD'S"
+            },
+            {
+                "from": [
+                    "SUBWAY",
+                    "Subway"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "SUBWAY"
+            }
+        ],
+        "description": "Mass edit cells in column DBA Name"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [
+                {
+                    "type": "range",
+                    "name": "DBA Name",
+                    "expression": "grel:facetCount(value, \"value\", \"DBA Name\")",
+                    "columnName": "DBA Name",
+                    "from": 100,
+                    "to": 2200,
+                    "selectNumeric": true,
+                    "selectNonNumeric": true,
+                    "selectBlank": true,
+                    "selectError": true
+                }
+            ],
+            "mode": "row-based"
+        },
+        "columnName": "DBA Name",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "DUNKIN DONUTS/BASKIN ROBBINS",
+                    "DUNKIN DONUTS / BASKIN ROBBINS"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "DUNKIN DONUTS/BASKIN ROBBINS"
+            },
+            {
+                "from": [
+                    "MCDONALD'S",
+                    "MC DONALD'S"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "MCDONALD'S"
+            }
+        ],
+        "description": "Mass edit cells in column DBA Name"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [
+                {
+                    "type": "range",
+                    "name": "DBA Name",
+                    "expression": "grel:facetCount(value, \"value\", \"DBA Name\")",
+                    "columnName": "DBA Name",
+                    "from": 100,
+                    "to": 2200,
+                    "selectNumeric": true,
+                    "selectNonNumeric": true,
+                    "selectBlank": true,
+                    "selectError": true
+                }
+            ],
+            "mode": "row-based"
+        },
+        "columnName": "DBA Name",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "POTBELLY SANDWICH WORKS LLC",
+                    "POTBELLY SANDWICH WORKS"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "POTBELLY SANDWICH WORKS"
+            }
+        ],
+        "description": "Mass edit cells in column DBA Name"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [
+                {
+                    "type": "range",
+                    "name": "DBA Name",
+                    "expression": "grel:facetCount(value, \"value\", \"DBA Name\")",
+                    "columnName": "DBA Name",
+                    "from": 100,
+                    "to": 2200,
+                    "selectNumeric": true,
+                    "selectNonNumeric": true,
+                    "selectBlank": true,
+                    "selectError": true
+                }
+            ],
+            "mode": "row-based"
+        },
+        "columnName": "AKA Name",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "DUNKIN DONUTS/BASKIN ROBBINS",
+                    "DUNKIN DONUTS-BASKIN ROBBINS",
+                    "DUNKIN DONUTS/BASKIN  ROBBINS"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "DUNKIN DONUTS/BASKIN ROBBINS"
+            },
+            {
+                "from": [
+                    "DUNKIN DONUTS / BASKIN ROBBINS",
+                    "DUNKIN DONUTS / BASKIN & ROBBINS",
+                    "DUNKIN DONUTS BASKIN ROBBINS"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "DUNKIN DONUTS / BASKIN ROBBINS"
+            },
+            {
+                "from": [
+                    "MCDONALD'S",
+                    "MCDONALDS",
+                    "McDonald's"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "MCDONALD'S"
+            },
+            {
+                "from": [
+                    "DOMINO'S PIZZA",
+                    "DOMINOS PIZZA"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "DOMINO'S PIZZA"
+            },
+            {
+                "from": [
+                    "AU BON PAIN",
+                    "AU BON  PAIN"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "AU BON PAIN"
+            },
+            {
+                "from": [
+                    "DUNKIN DONUTS",
+                    "Dunkin Donuts"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "DUNKIN DONUTS"
+            },
+            {
+                "from": [
+                    "KFC/LONG JOHN SILVER",
+                    "KFC/Long John Silver"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "KFC/LONG JOHN SILVER"
+            },
+            {
+                "from": [
+                    "7-ELEVEN",
+                    "7_ELEVEN"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "7-ELEVEN"
+            }
+        ],
+        "description": "Mass edit cells in column AKA Name"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [
+                {
+                    "type": "range",
+                    "name": "DBA Name",
+                    "expression": "grel:facetCount(value, \"value\", \"DBA Name\")",
+                    "columnName": "DBA Name",
+                    "from": 100,
+                    "to": 2200,
+                    "selectNumeric": true,
+                    "selectNonNumeric": true,
+                    "selectBlank": true,
+                    "selectError": true
+                }
+            ],
+            "mode": "row-based"
+        },
+        "columnName": "AKA Name",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "7-ELEVEN",
+                    "7 ELEVEN"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "7-ELEVEN"
+            },
+            {
+                "from": [
+                    "DUNKIN DONUTS",
+                    "DUNKINDONUTS"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "DUNKIN DONUTS"
+            },
+            {
+                "from": [
+                    "MCDONALD'S",
+                    "MC DONALD'S"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "MCDONALD'S"
+            },
+            {
+                "from": [
+                    "AU BON PAIN",
+                    "AUBON PAIN"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "AU BON PAIN"
+            },
+            {
+                "from": [
+                    "DUNKIN DONUTS/BASKIN ROBBINS",
+                    "DUNKIN DONUTS / BASKIN ROBBINS"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "DUNKIN DONUTS/BASKIN ROBBINS"
+            }
+        ],
+        "description": "Mass edit cells in column AKA Name"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [
+                {
+                    "type": "range",
+                    "name": "DBA Name",
+                    "expression": "grel:facetCount(value, \"value\", \"DBA Name\")",
+                    "columnName": "DBA Name",
+                    "from": 100,
+                    "to": 2200,
+                    "selectNumeric": true,
+                    "selectNonNumeric": true,
+                    "selectBlank": true,
+                    "selectError": true
+                }
+            ],
+            "mode": "row-based"
+        },
+        "columnName": "AKA Name",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "DUNKIN DONUTS",
+                    "DUNKIN DONUTS/BASKIN ROBBINS",
+                    "DUNKIN DONUTS/BASKIN ROBINS",
+                    "DUNKIN DONUTS (T3 HK FOODCOURT)"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "DUNKIN DONUTS"
+            },
+            {
+                "from": [
+                    "MCDONALD'S   (T3- L4)",
+                    "MCDONALD'S  (T2   E/F)",
+                    "MCDONALD'S (T5/ARRIVAL)",
+                    "MCDONALDS  (T3  K9)"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "MCDONALD'S"
+            },
+            {
+                "from": [
+                    "CORN OFF THE COB (#105)",
+                    "CORN OFF THE COB (#127)",
+                    "CORN OFF THE COB (#142-143)"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "CORN OFF THE COB"
+            },
+            {
+                "from": [
+                    "MISSION NACHOS 9- (#535-536)",
+                    "MISSION NACHOS 3 - (#122)",
+                    "MISSION NACHOS 4 - (#114)"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "MISSION NACHOS"
+            },
+            {
+                "from": [
+                    "FUNNEL CAKE FACTORY 1 (#156)",
+                    "FUNNEL CAKE FACTORY 3 (#533)",
+                    "FUNNEL CAKE FACTORY 2 (#109)"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "FUNNEL CAKE FACTORY"
+            },
+            {
+                "from": [
+                    "DIPPING DOTS ICE CREAM 1 (#135-136)",
+                    "DIPPING DOTS ICE CREAM 2 (#540-542)",
+                    "DIPPING DOTS (SEC. #132)"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "DIPPING DOTS ICE CREAM"
+            },
+            {
+                "from": [
+                    "HOT DOG VIENNA BEEF 8 (#552)",
+                    "HOT DOG VIENNA BEEF 9 (#548)",
+                    "HOT DOG VIENNA BEEF 7 (#557)"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "HOT DOG VIENNA BEEF"
+            },
+            {
+                "from": [
+                    "STARBUCKS (T3  G14 LL)",
+                    "STARBUCKS (T3 K15 FOOD COURT)",
+                    "STARBUCKS  (T1-C27)"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "STARBUCKS"
+            },
+            {
+                "from": [
+                    "POTBELLY SANDWICH WORKS",
+                    "POTBELLY SANDWICH WORKS LLC",
+                    "POTBELLY SANDWICH SHOP"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "POTBELLY SANDWICH WORKS"
+            },
+            {
+                "from": [
+                    "HAROLD'S CHICKEN SHACK",
+                    "HAROLD'S CHICKEN"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "HAROLD'S CHICKEN SHACK"
+            },
+            {
+                "from": [
+                    "MISSION NACHOS 6 - DIPPING DOTS (#157)",
+                    "MISSION NACHOS 5 - DIPPING DOTS (#108)"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "MISSION NACHOS/DIPPING DOTS"
+            },
+            {
+                "from": [
+                    "DOMINO'S PIZZA",
+                    "DOMINOS PZZA"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "DOMINO'S PIZZA"
+            },
+            {
+                "from": [
+                    "STARBUCKS  (T3 H6)",
+                    "STARBUCKS   T3 H-13"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "STARBUCKS"
+            },
+            {
+                "from": [
+                    "CHURROS - (#137)",
+                    "CHURROS - (#159)"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "CHURROS"
+            },
+            {
+                "from": [
+                    "TEX-MEX 1 (#126)",
+                    "TEX-MEX 2 (#154)"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "TEX-MEX"
+            },
+            {
+                "from": [
+                    "PIZZA",
+                    "132 PIZZA"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "PIZZA"
+            },
+            {
+                "from": [
+                    "GRIDIRON GRILL",
+                    "GRIDIRON GRILL # 431"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "GRIDIRON GRILL"
+            },
+            {
+                "from": [
+                    "1ST DOWN FRANKS",
+                    "1ST DOWN FRANK"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "1ST DOWN FRANKS"
+            }
+        ],
+        "description": "Mass edit cells in column AKA Name"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [
+                {
+                    "type": "range",
+                    "name": "DBA Name",
+                    "expression": "grel:facetCount(value, \"value\", \"DBA Name\")",
+                    "columnName": "DBA Name",
+                    "from": 100,
+                    "to": 2200,
+                    "selectNumeric": true,
+                    "selectNonNumeric": true,
+                    "selectBlank": true,
+                    "selectError": true
+                }
+            ],
+            "mode": "row-based"
+        },
+        "columnName": "AKA Name",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "TEX-MEX",
+                    "TEX-MEX 4 - MISSION (#524/526)"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "TEX-MEX"
+            },
+            {
+                "from": [
+                    "BREWS BROTHER",
+                    "BREWS BROTHERS"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "BREWS BROTHERS"
+            },
+            {
+                "from": [
+                    "SOUTH SIDE HITMAN STAND #140",
+                    "SOUTH SIDE HITMEN GRILL STAND #544"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "SOUTH SIDE HITMAN"
+            }
+        ],
+        "description": "Mass edit cells in column AKA Name"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [
+                {
+                    "type": "range",
+                    "name": "DBA Name",
+                    "expression": "grel:facetCount(value, \"value\", \"DBA Name\")",
+                    "columnName": "DBA Name",
+                    "from": 100,
+                    "to": 2200,
+                    "selectNumeric": true,
+                    "selectNonNumeric": true,
+                    "selectBlank": true,
+                    "selectError": true
+                }
+            ],
+            "mode": "row-based"
+        },
+        "columnName": "AKA Name",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "MCDONALD'S",
+                    "MCDONALD'S EXPRESS"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "MCDONALD'S"
+            }
+        ],
+        "description": "Mass edit cells in column AKA Name"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [
+                {
+                    "type": "range",
+                    "name": "DBA Name",
+                    "expression": "grel:facetCount(value, \"value\", \"DBA Name\")",
+                    "columnName": "DBA Name",
+                    "from": 100,
+                    "to": 2200,
+                    "selectNumeric": true,
+                    "selectNonNumeric": true,
+                    "selectBlank": true,
+                    "selectError": true
+                }
+            ],
+            "mode": "row-based"
+        },
+        "columnName": "AKA Name",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "1ST DOWN FRANKS",
+                    "IST DOWN FRANKS"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "1ST DOWN FRANKS"
+            },
+            {
+                "from": [
+                    "CHICAGO DOG",
+                    "CHICAGO DOGS"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "CHICAGO DOGS"
+            }
+        ],
+        "description": "Mass edit cells in column AKA Name"
+    },
+    {
+        "op": "core/text-transform",
+        "engineConfig": {
+            "facets": [
+                {
+                    "type": "text",
+                    "name": "License #",
+                    "columnName": "License #",
+                    "query": "^0$",
+                    "mode": "regex",
+                    "caseSensitive": false,
+                    "invert": false
+                }
+            ],
+            "mode": "row-based"
+        },
+        "columnName": "License #",
+        "expression": "null",
+        "onError": "keep-original",
+        "repeat": false,
+        "repeatCount": 10,
+        "description": "Text transform on cells in column License # using expression null"
+    },
+    {
+        "op": "core/text-transform",
+        "engineConfig": {
+            "facets": [],
+            "mode": "row-based"
+        },
+        "columnName": "License #",
+        "expression": "value.toNumber()",
+        "onError": "keep-original",
+        "repeat": false,
+        "repeatCount": 10,
+        "description": "Text transform on cells in column License # using expression value.toNumber()"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [],
+            "mode": "row-based"
+        },
+        "columnName": "City",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "CHICAGO",
+                    "Chicago",
+                    "chicago",
+                    "CHicago"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "CHICAGO"
+            },
+            {
+                "from": [
+                    "ALSIP",
+                    "alsip"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "ALSIP"
+            },
+            {
+                "from": [
+                    "MAYWOOD",
+                    "Maywood"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "MAYWOOD"
+            }
+        ],
+        "description": "Mass edit cells in column City"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [],
+            "mode": "row-based"
+        },
+        "columnName": "City",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "CHICAGO",
+                    "CHICAGOI",
+                    "312CHICAGO"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "CHICAGO"
+            },
+            {
+                "from": [
+                    "OLYMPIA FIELDS",
+                    "OOLYMPIA FIELDS"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "OLYMPIA FIELDS"
+            }
+        ],
+        "description": "Mass edit cells in column City"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [],
+            "mode": "row-based"
+        },
+        "columnName": "City",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "CHICAGO",
+                    "CCHICAGO",
+                    "CHCHICAGO",
+                    "CHCICAGO"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "CHICAGO"
+            }
+        ],
+        "description": "Mass edit cells in column City"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [],
+            "mode": "row-based"
+        },
+        "columnName": "City",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "CHICAGO",
+                    "CHICAGOCHICAGO"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "CHICAGO"
+            }
+        ],
+        "description": "Mass edit cells in column City"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [],
+            "mode": "row-based"
+        },
+        "columnName": "City",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "Norridge"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "NORRIDGE"
+            }
+        ],
+        "description": "Mass edit cells in column City"
+    },
+    {
+        "op": "core/mass-edit",
+        "engineConfig": {
+            "facets": [],
+            "mode": "row-based"
+        },
+        "columnName": "City",
+        "expression": "value",
+        "edits": [
+            {
+                "from": [
+                    "BANNOCKBURNDEERFIELD"
+                ],
+                "fromBlank": false,
+                "fromError": false,
+                "to": "BANNOCKBURN DEERFIELD"
+            }
+        ],
+        "description": "Mass edit cells in column City"
+    },
+    {
+        "op": "core/text-transform",
+        "engineConfig": {
+            "facets": [
+                {
+                    "type": "list",
+                    "name": "State",
+                    "expression": "isBlank(value)",
+                    "columnName": "State",
+                    "invert": false,
+                    "omitBlank": false,
+                    "omitError": false,
+                    "selection": [
+                        {
+                            "v": {
+                                "v": true,
+                                "l": "true"
+                            }
+                        }
+                    ],
+                    "selectBlank": false,
+                    "selectError": false
+                }
+            ],
+            "mode": "row-based"
+        },
+        "columnName": "State",
+        "expression": "jython:return \"IL\"",
+        "onError": "keep-original",
+        "repeat": false,
+        "repeatCount": 10,
+        "description": "Text transform on cells in column State using expression jython:return \"IL\""
+    }
+]

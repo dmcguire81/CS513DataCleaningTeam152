@@ -33,30 +33,63 @@ dot -Tpng overview.gv > overview.png
 ![Overview](overview.png)
 
 ### Partition Dataset
-> **TODO:** Sub-workflow documention
-
-### Clean Locations
-> **TODO:** Sub-workflow documention
-
-### Clean Inspections
-> **TODO:** Sub-workflow documention
-
-### Clean Violations
-
-> **NOTE:** This sub-workflow is from a prototype, and is acting as a placeholder. Naming convention and generation instructions will be updated with the new implementation.
 
 Generate as follows:
 
 ```bash
-or2yw -i violations.json -o violations.yw
-yw graph -c extract.comment='#' violations.yw > violations.gv
-# work around defects in tooling
-sed -i '' "s/{<f0> \"/{<f0> /g" violations.gv
-sed -i '' "s/\" |<f1>/ |<f1>/g" violations.gv
-dot -Tpng violations.gv > violations.png
+# Note the customization to support long descriptions
+yw graph -c extract.comment='#' -c graph.layout=LR -c graph.view=PROCESS partition_dataset.py > partition_dataset.gv
+dot -Tpng partition_dataset.gv > partition_dataset.png
 ```
 
-![Violations](violations.png)
+![Partition Dataset](partition_dataset.png)
+
+### Clean Licensees and Locations
+
+Generate as follows:
+
+```bash
+or2yw -title "clean_licensees_and_locations" -i clean_licensees_and_locations.json -o clean_licensees_and_locations.yw
+yw graph -c extract.comment='#' clean_licensees_and_locations.yw > clean_licensees_and_locations.gv
+# work around defects in tooling
+sed -i '' "s/{<f0> \"/{<f0> /g" clean_licensees_and_locations.gv
+sed -i '' "s/\" |<f1>/ |<f1>/g" clean_licensees_and_locations.gv
+dot -Tpng clean_licensees_and_locations.gv > clean_licensees_and_locations.png
+```
+
+![Clean Licensees and Locations](clean_licensees_and_locations.png)
+
+### Clean Inspections
+
+Generate as follows:
+
+```bash
+or2yw -title "clean_inspections" -i clean_inspections.json -o clean_inspections.yw
+yw graph -c extract.comment='#' clean_inspections.yw > clean_inspections.gv
+# work around defects in tooling
+sed -i '' "s/{<f0> \"/{<f0> /g" clean_inspections.gv
+sed -i '' "s/\" |<f1>/ |<f1>/g" clean_inspections.gv
+dot -Tpng clean_inspections.gv > clean_inspections.png
+```
+
+![Clean Inspections](clean_inspections.png)
+
+### Clean and Unnest Violations
+
+Generate as follows:
+
+```bash
+or2yw -title "clean_and_unnest_violations" -i clean_and_unnest_violations.json -o clean_and_unnest_violations.yw
+yw graph -c extract.comment='#' clean_and_unnest_violations.yw > clean_and_unnest_violations.gv
+# work around defects in tooling
+sed -i '' "s/{<f0> \"/{<f0> /g" clean_and_unnest_violations.gv
+sed -i '' "s/\" |<f1>/ |<f1>/g" clean_and_unnest_violations.gv
+dot -Tpng clean_and_unnest_violations.gv > clean_and_unnest_violations.png
+```
+
+> **TODO:** Figure out why `core/multivalued-cell-split` and `core/fill-down` were ommitted from the diagram.
+
+![Clean and Unnest Violations](clean_and_unnest_violations.png)
 
 ### Repair Locations
 
@@ -74,14 +107,20 @@ dot -Tpng geocode.gv > geocode.png
 > **NOTE:** This sub-workflow is from a prototype, and is acting as a placeholder. Naming convention and generation instructions will be updated with the new implementation.
 
 Download from [CS513 Data Cleaning](https://uillinoisedu-my.sharepoint.com/:f:/g/personal/dmcguire_illinois_edu/Ek8ZzambYMZOoGirOveJarMBoXWml2Q6oSnMXG_cbYHleQ?e=OfO3ef)
-* `Food_Inspections.csv`
-* `Food_Inspections_Violations.csv`
+* `Food_Inspections.csv` (original)
+* `Cleaned_Food_Licensee_Inspections.csv`
+* `Cleaned_Food_Licensees_and_Locations.csv`
+* `Cleaned_and_Unnested_Food_Inspection_Violations.csv`
 
 ```sh
 sqlite3 Food_Inspections.sqlite
 sqlite> .read Food_Inspections.sql
-sqlite> .read Food_Inspections_Violations.sql
+sqlite> .read Cleaned_Food_Licensee_Inspections.sql
+sqlite> .read Cleaned_Food_Licensees_and_Locations.sql
+sqlite> .read Cleaned_and_Unnested_Food_Inspection_Violations.sql
 ```
+
+> **TODO:** Replace `Cleaned_Food_Licensees_and_Locations.*` with `Repaired_Food_Licensees_and_Locations.*` once `repair_location.py` is complete.
 
 ### Visualize
 > **TODO:** Documentation of queries specific to use case 1 (U1)

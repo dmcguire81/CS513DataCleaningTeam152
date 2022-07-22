@@ -1,0 +1,140 @@
+digraph Workflow {
+rankdir=TB
+fontname=Courier; fontsize=18; labelloc=t
+label=clean_and_unnest_violations
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; color=white
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+"core/text-transform0#" [shape=record rankdir=LR label="{<f0> core/text-transform0# |<f1> Text transform on cells in column Inspection ID using expression value.toNumber()}"];
+"core/column-split0#" [shape=record rankdir=LR label="{<f0> core/column-split0# |<f1> Split column Violations by separator}"];
+"core/column-split1#" [shape=record rankdir=LR label="{<f0> core/column-split1# |<f1> Split column Violations 1 by separator}"];
+"core/column-rename0#" [shape=record rankdir=LR label="{<f0> core/column-rename0# |<f1> Rename column Violations 1 1 to Violation ID}"];
+"core/column-rename1#" [shape=record rankdir=LR label="{<f0> core/column-rename1# |<f1> Rename column Violations 1 2 to Violation Title}"];
+"core/column-rename2#" [shape=record rankdir=LR label="{<f0> core/column-rename2# |<f1> Rename column Violations 2 to Violation Comments}"];
+"core/row-removal0#" [shape=record rankdir=LR label="{<f0> core/row-removal0# |<f1> Remove rows}"];
+"core/text-transform1#" [shape=record rankdir=LR label="{<f0> core/text-transform1# |<f1> Text transform on cells in column Violation Title using expression value.trim()}"];
+"core/text-transform2#" [shape=record rankdir=LR label="{<f0> core/text-transform2# |<f1> Text transform on cells in column Violation Comments using expression value.trim()}"];
+"core/text-transform3#" [shape=record rankdir=LR label="{<f0> core/text-transform3# |<f1> Text transform on cells in column Violation Comments using expression value.replace(/\\s+/,' ')}"];
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+table0
+table1
+table2
+table3
+table4
+table5
+table6
+table7
+table8
+table9
+node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
+"col-name:Inspection_ID"
+"expression:value.toNumber()"
+"col-name:Violations"
+"separator:\"-_Comments:\""
+"removeOriginalColumn:True"
+"col-name:Violations_1"
+"separator:\".\""
+"oldColumnName:Violations_1_1"
+"newColumnName:Violation_ID"
+"oldColumnName:Violations_1_2"
+"newColumnName:Violation_Title"
+"oldColumnName:Violations_2"
+"newColumnName:Violation_Comments"
+"col-name:Violation_ID"
+"expression:\"isBlank(value)\""
+"col-name:Violation_Title"
+"expression:value.trim()"
+"col-name:Violation_Comments"
+"expression:value.replace(/\\s+/,'_')"
+"core/text-transform0#" -> table1
+"col-name:Inspection_ID" -> "core/text-transform0#"
+"expression:value.toNumber()" -> "core/text-transform0#"
+table0 -> "core/text-transform0#"
+"core/column-split0#" -> table2
+"col-name:Violations" -> "core/column-split0#"
+"separator:\"-_Comments:\"" -> "core/column-split0#"
+"removeOriginalColumn:True" -> "core/column-split0#"
+table1 -> "core/column-split0#"
+"core/column-split1#" -> table3
+"col-name:Violations_1" -> "core/column-split1#"
+"separator:\".\"" -> "core/column-split1#"
+"removeOriginalColumn:True" -> "core/column-split1#"
+table2 -> "core/column-split1#"
+"core/column-rename0#" -> table4
+"oldColumnName:Violations_1_1" -> "core/column-rename0#"
+"newColumnName:Violation_ID" -> "core/column-rename0#"
+table3 -> "core/column-rename0#"
+"core/column-rename1#" -> table5
+"oldColumnName:Violations_1_2" -> "core/column-rename1#"
+"newColumnName:Violation_Title" -> "core/column-rename1#"
+table4 -> "core/column-rename1#"
+"core/column-rename2#" -> table6
+"oldColumnName:Violations_2" -> "core/column-rename2#"
+"newColumnName:Violation_Comments" -> "core/column-rename2#"
+table5 -> "core/column-rename2#"
+"core/row-removal0#" -> table7
+"col-name:Violation_ID" -> "core/row-removal0#"
+"expression:\"isBlank(value)\"" -> "core/row-removal0#"
+table6 -> "core/row-removal0#"
+"core/text-transform1#" -> table8
+"col-name:Violation_Title" -> "core/text-transform1#"
+"expression:value.trim()" -> "core/text-transform1#"
+table7 -> "core/text-transform1#"
+"core/text-transform2#" -> table9
+"col-name:Violation_Comments" -> "core/text-transform2#"
+"expression:value.trim()" -> "core/text-transform2#"
+table8 -> "core/text-transform2#"
+"core/text-transform3#" -> table10
+"col-name:Violation_Comments" -> "core/text-transform3#"
+"expression:value.replace(/\\s+/,'_')" -> "core/text-transform3#"
+table9 -> "core/text-transform3#"
+}}
+subgraph cluster_input_ports_group_outer { label=""; color=white
+subgraph cluster_input_ports_group_inner { label=""; color=white
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+"oldColumnName:Violations_1_2_input_port" [label=""]
+"removeOriginalColumn:True_input_port" [label=""]
+"separator:\".\"_input_port" [label=""]
+"newColumnName:Violation_Comments_input_port" [label=""]
+"col-name:Violation_ID_input_port" [label=""]
+"expression:value.trim()_input_port" [label=""]
+"col-name:Violations_1_input_port" [label=""]
+"col-name:Violation_Title_input_port" [label=""]
+"expression:value.toNumber()_input_port" [label=""]
+"newColumnName:Violation_ID_input_port" [label=""]
+"oldColumnName:Violations_1_1_input_port" [label=""]
+"expression:\"isBlank(value)\"_input_port" [label=""]
+"expression:value.replace(/\\s+/,'_')_input_port" [label=""]
+"col-name:Violation_Comments_input_port" [label=""]
+"col-name:Violations_input_port" [label=""]
+"separator:\"-_Comments:\"_input_port" [label=""]
+"col-name:Inspection_ID_input_port" [label=""]
+"newColumnName:Violation_Title_input_port" [label=""]
+"oldColumnName:Violations_2_input_port" [label=""]
+table0_input_port [label=""]
+}}
+subgraph cluster_output_ports_group_outer { label=""; color=white
+subgraph cluster_output_ports_group_inner { label=""; color=white
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+}}
+"oldColumnName:Violations_1_2_input_port" -> "oldColumnName:Violations_1_2"
+"removeOriginalColumn:True_input_port" -> "removeOriginalColumn:True"
+"separator:\".\"_input_port" -> "separator:\".\""
+"newColumnName:Violation_Comments_input_port" -> "newColumnName:Violation_Comments"
+"col-name:Violation_ID_input_port" -> "col-name:Violation_ID"
+"expression:value.trim()_input_port" -> "expression:value.trim()"
+"col-name:Violations_1_input_port" -> "col-name:Violations_1"
+"col-name:Violation_Title_input_port" -> "col-name:Violation_Title"
+"expression:value.toNumber()_input_port" -> "expression:value.toNumber()"
+"newColumnName:Violation_ID_input_port" -> "newColumnName:Violation_ID"
+"oldColumnName:Violations_1_1_input_port" -> "oldColumnName:Violations_1_1"
+"expression:\"isBlank(value)\"_input_port" -> "expression:\"isBlank(value)\""
+"expression:value.replace(/\\s+/,'_')_input_port" -> "expression:value.replace(/\\s+/,'_')"
+"col-name:Violation_Comments_input_port" -> "col-name:Violation_Comments"
+"col-name:Violations_input_port" -> "col-name:Violations"
+"separator:\"-_Comments:\"_input_port" -> "separator:\"-_Comments:\""
+"col-name:Inspection_ID_input_port" -> "col-name:Inspection_ID"
+"newColumnName:Violation_Title_input_port" -> "newColumnName:Violation_Title"
+"oldColumnName:Violations_2_input_port" -> "oldColumnName:Violations_2"
+table0_input_port -> table0
+}
