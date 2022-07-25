@@ -93,14 +93,12 @@ dot -Tpng clean_and_unnest_violations.gv > clean_and_unnest_violations.png
 
 ### Repair Locations
 
-> **NOTE:** This sub-workflow is from a prototype, and is acting as a placeholder. Naming convention and generation instructions will be updated with the new implementation.
-
 ```bash
-yw graph -c extract.comment='#' geocode.py > geocode.gv
-dot -Tpng geocode.gv > geocode.png
+yw graph repair_location.py -config graph.view=combined -config graph.layout=TB > repair_location.gv
+dot -Tpng repair_location.gv > repair_location.png
 ```
 
-![Geocode](geocode.png)
+![Repair Location](repair_location.png)
 
 ### Normalize
 
@@ -118,6 +116,7 @@ sqlite> .read Food_Inspections.sql
 sqlite> .read Cleaned_Food_Licensee_Inspections.sql
 sqlite> .read Cleaned_Food_Licensees_and_Locations.sql
 sqlite> .read Cleaned_and_Unnested_Food_Inspection_Violations.sql
+sqlite> .read Repaired_Food_Licensees_and_Locations.sql
 ```
 
 > **TODO:** Replace `Cleaned_Food_Licensees_and_Locations.*` with `Repaired_Food_Licensees_and_Locations.*` once `repair_location.py` is complete.
