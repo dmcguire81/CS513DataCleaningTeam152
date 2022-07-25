@@ -82,12 +82,12 @@ def geocode(full_address):
         )
 
 
-# @BEGIN main
+# @BEGIN repair_location
 # @PARAM food_inspections_input_filename
 # @PARAM geocoding_output_filename
 # @IN food_inspections_input_file @URI file://{food_inspections_input_filename}
 # @OUT geocoding_output_file @URI file://{geocoding_output_filename}
-def main(food_inspections_input_filename, geocoding_output_filename):
+def repair_location(food_inspections_input_filename, geocoding_output_filename):
     # @BEGIN read_food_inspections_input
     # @IN food_inspections_input_file @URI file://{food_inspections_input_filename}
     # @OUT food_inspections_input_df
@@ -190,4 +190,4 @@ def main(food_inspections_input_filename, geocoding_output_filename):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    repair_location(*sys.argv[1:])
