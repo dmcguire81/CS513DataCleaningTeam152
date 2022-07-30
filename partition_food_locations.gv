@@ -1,0 +1,36 @@
+digraph Workflow {
+rankdir=TB
+fontname=Helvetica; fontsize=18; labelloc=t
+label=partition_food_locations
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; penwidth=0
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Helvetica]
+read_licensees_locations_input
+remove_duplicate_locations
+write_food_locations
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+food_locations_output_file [shape=record rankdir=LR label="{<f0> food_locations_output_file |<f1> file\://\{food_locations_output_filename\}}"];
+licensees_locations_input_file [shape=record rankdir=LR label="{<f0> licensees_locations_input_file |<f1> file\://\{licensees_locations_input_filename\}}"];
+licensees_locations_input_df
+food_locations_df
+node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
+read_licensees_locations_input -> licensees_locations_input_df
+licensees_locations_input_file -> read_licensees_locations_input
+remove_duplicate_locations -> food_locations_df
+licensees_locations_input_df -> remove_duplicate_locations
+write_food_locations -> food_locations_output_file
+food_locations_df -> write_food_locations
+}}
+subgraph cluster_input_ports_group_outer { label=""; penwidth=0
+subgraph cluster_input_ports_group_inner { label=""; penwidth=0
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+licensees_locations_input_file_input_port [label=""]
+}}
+subgraph cluster_output_ports_group_outer { label=""; penwidth=0
+subgraph cluster_output_ports_group_inner { label=""; penwidth=0
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+food_locations_output_file_output_port [label=""]
+}}
+licensees_locations_input_file_input_port -> licensees_locations_input_file
+food_locations_output_file -> food_locations_output_file_output_port
+}

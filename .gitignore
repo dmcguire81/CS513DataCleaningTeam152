@@ -2,3 +2,4 @@ google_api.key
 *.csv
 *.twbr
 *.sqlite
+.idea/

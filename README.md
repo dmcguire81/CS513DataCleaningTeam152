@@ -93,14 +93,21 @@ dot -Tpng clean_and_unnest_violations.gv > clean_and_unnest_violations.png
 
 ### Repair Locations
 
-> **NOTE:** This sub-workflow is from a prototype, and is acting as a placeholder. Naming convention and generation instructions will be updated with the new implementation.
-
 ```bash
-yw graph -c extract.comment='#' geocode.py > geocode.gv
-dot -Tpng geocode.gv > geocode.png
+yw graph repair_location.py -config graph.view=combined -config graph.layout=TB > repair_location.gv
+dot -Tpng repair_location.gv > repair_location.png
 ```
 
-![Geocode](geocode.png)
+![Repair Location](repair_location.png)
+
+### Partition Food Locations
+
+```bash
+yw graph partition_food_locations.py -config graph.view=combined -config graph.layout=TB > partition_food_locations.gv
+dot -Tpng partition_food_locations.gv > partition_food_locations.png
+```
+
+![Partition Food Locations](partition_food_locations.png)
 
 ### Normalize
 
@@ -111,6 +118,8 @@ Download from [CS513 Data Cleaning](https://uillinoisedu-my.sharepoint.com/:f:/g
 * `Cleaned_Food_Licensee_Inspections.csv`
 * `Cleaned_Food_Licensees_and_Locations.csv`
 * `Cleaned_and_Unnested_Food_Inspection_Violations.csv`
+* `Repaired_Food_Licensees_and_Locations.csv`
+* `Food_Locations.csv`
 
 ```sh
 sqlite3 Food_Inspections.sqlite
@@ -118,9 +127,9 @@ sqlite> .read Food_Inspections.sql
 sqlite> .read Cleaned_Food_Licensee_Inspections.sql
 sqlite> .read Cleaned_Food_Licensees_and_Locations.sql
 sqlite> .read Cleaned_and_Unnested_Food_Inspection_Violations.sql
+sqlite> .read Repaired_Food_Licensees_and_Locations.sql
+sqlite> .read Food_Locations.sql
 ```
-
-> **TODO:** Replace `Cleaned_Food_Licensees_and_Locations.*` with `Repaired_Food_Licensees_and_Locations.*` once `repair_location.py` is complete.
 
 ### Visualize
 > **TODO:** Documentation of queries specific to use case 1 (U1)
