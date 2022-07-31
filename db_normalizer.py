@@ -59,8 +59,8 @@ def repair_referential_IC(
 # @IN food_violations_file @URI file://{food_violations_filename}
 # @IN food_licensees_file @URI file://{food_licensees_filename}
 # @IN food_locations_file @URI file://{food_locations_filename}
-# @IN dirty_food_inspections @URI file://{dirty_food_inspections_filename}
-# @param sqlite_db_file
+# @IN dirty_food_inspections_file @URI file://{dirty_food_inspections_filename}
+# @param sqlite_db_file 
 # @OUT sqllite_db_file @URI file://{sqlite_db_filename} 
 def main(
         food_licensee_inspections_filename, 
@@ -73,26 +73,26 @@ def main(
     ):
 
     """Load and filter out bad data"""
-    # @BEGIN food_licensee_inspections_input
+    # @BEGIN food_licensee_inspections_input @desc load the food licensee inspections data data from csv.
     # @IN food_licensee_inspections_file @URI file://{food_licensee_inspections_filename}
     # @OUT food_licensee_inspections
     food_licensee_inspections = pd.read_csv(food_licensee_inspections_filename)
     # @END food_licensee_inspections_input
 
-    # @BEGIN food_inspection_violations_input
+    # @BEGIN food_inspection_violations_input @desc read food inspection violations data from csv, and drop duplicate records.
     # @IN food_inspection_violations_file @URI file://{food_inspection_violations_filename}
     # @OUT food_inspection_violations
     food_inspection_violations = pd.read_csv(food_inspection_violations_filename)
     food_inspection_violations = food_inspection_violations.drop_duplicates(subset=["Inspection ID", "Violation ID", "Violation Comments"])  
     # @END food_inspection_violations_input
 
-    # @BEGIN food_violations_input
+    # @BEGIN food_violations_input @desc read the food violations data from csv.
     # @IN food_violations_file @URI file://{food_violations_filename}
     # @OUT food_violations
     food_violations = pd.read_csv(food_violations_filename)
     # @END food_violations_input
 
-    # @BEGIN food_licensees_input
+    # @BEGIN food_licensees_input @desc read the food licensees data spreadsheet, normalize casing different, drop null values and duplicate records.
     # @IN food_licensees_file @URI file://{food_licensees_filename}
     # @OUT food_licensees
     food_licensees = pd.read_csv(food_licensees_filename)
@@ -105,7 +105,7 @@ def main(
     food_licensees = food_licensees.drop_duplicates(subset=['License #'])
     # @END food_licensees_input
 
-    # @BEGIN food_locations_input
+    # @BEGIN food_locations_input @desc load food locations data from csv, drop null values and duplicate records.
     # @IN food_locations_file @URI file://{food_locations_filename}
     # @OUT food_locations
     food_locations = pd.read_csv(food_locations_filename)
@@ -116,8 +116,8 @@ def main(
     food_locations = food_locations.drop_duplicates(subset=['Address', 'Zip', 'City', 'State'])
     # @END food_locations_input
 
-    # @BEGIN dirty_food_inspections_input
-    # @IN food_licensee_inspections_file @URI file://{dirty_food_inspections_filename}
+    # @BEGIN dirty_food_inspections_input @desc load the original data data from csv.
+    # @IN dirty_food_inspections_file @URI file://{dirty_food_inspections_filename}
     # @OUT dirty_food_inspections
     dirty_food_inspections = pd.read_csv(dirty_food_inspections_filename)
     # @END dirty_food_inspections
@@ -128,7 +128,7 @@ def main(
     conn = sqlite3.connect(sqlite_db_filename)
     # @END create_or_connect_to_sqlite_db
 
-    # @BEGIN food_licensee_inspections_to_sql
+    # @BEGIN food_licensee_inspections_to_sql @desc write the food licensee inspections data to SQL database table. 
     # @IN food_licensee_inspections 
     # @param food_licensee_inspections_tablename
     # @param conn 
@@ -138,7 +138,7 @@ def main(
     food_licensee_inspections.to_sql('Food_Licensee_Inspections',con=conn,if_exists='replace', index=False)
     # @END food_licensee_inspections_to_sql
 
-    # @BEGIN food_inspection_violations_to_sql
+    # @BEGIN food_inspection_violations_to_sql @desc write the food inspection violations data to SQL database.
     # @IN food_inspection_violations 
     # @param food_inspection_violations_tablename
     # @param conn 
@@ -148,7 +148,7 @@ def main(
     food_inspection_violations.to_sql('Food_Inspection_Violations',con=conn,if_exists='replace', index=True)
     # @END food_inspection_violations_to_sql
 
-    # @BEGIN food_violations_to_sql
+    # @BEGIN food_violations_to_sql @desc write the food violations data to SQL database.
     # @IN food_violations 
     # @param food_violations_tablename
     # @param conn 
@@ -158,8 +158,8 @@ def main(
     food_violations.to_sql('Food_Violations',con=conn,if_exists='replace', index=False)
     # @END food_violations_to_sql
 
-    # @BEGIN food_licensees_to_sql
-    # @IN food_licensees 
+    # @BEGIN food_licensees_to_sql @desc write the food licensees data to SQL database.
+    # @IN  food_licensees
     # @param food_licensees_tablename
     # @param conn 
     # @param if_exists
@@ -168,7 +168,7 @@ def main(
     food_licensees.to_sql('Food_Licensees',con=conn,if_exists='replace', index=False)
     # @END food_licensees_to_sql
 
-    # @BEGIN food_locations_to_sql
+    # @BEGIN food_locations_to_sql @desc write the food locations data to SQL database.
     # @IN food_locations 
     # @param food_locations_tablename
     # @param conn 
@@ -178,24 +178,23 @@ def main(
     food_locations.to_sql('Food_Locations',con=conn,if_exists='replace', index=False)
     # @END food_locations_to_sql
 
-    # @BEGIN dirty_food_inspections_to_sql
+    # @BEGIN dirty_food_inspections_to_sql @desc write original data(dirty data) to SQL database.
     # @IN dirty_food_inspections 
     # @param dirty_food_inspections_tablename
     # @param conn 
     # @param if_exists
     # @param index
-    # @OUT sqlite_db_file
     dirty_food_inspections.to_sql('Food_Inspections',con=conn,if_exists='replace', index=False)
     # @END dirty_food_inspections_to_sql
 
-    # @BEGIN repair_referential_IC
+    # @BEGIN repair_referential_IC @desc remove (orphan) reocrds which violate referential integrity. 
     # @IN food_licensee_inspections_table
     # @IN food_licensees_table
     # @IN food_inspection_violations_table
     # @IN food_violations_table
     # @IN food_locations_table
-    # @param conn 
     # @OUT sqlite_db_file
+    # @param conn 
     repair_referential_IC(
         "Food_Licensee_Inspections",
         "Food_Licensees", 
