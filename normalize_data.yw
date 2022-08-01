@@ -102,8 +102,36 @@
 #     @IN food_inspection_violations_table
 #     @IN food_violations_table
 #     @IN food_locations_table
-#     @OUT sqlite_db_file
+#     @OUT cleaned_and_normalized_tables
 #     @param conn
 #     @END repair_referential_IC
+
+#     @BEGIN primary_key_constraint_check  @desc set and enforce single primary key constraints.
+#     @PARAM sql_tablename
+#     @PARAM primary_keys_colnames
+#     @PARAM cleaned_and_normalized_tables
+#     @PARAM conn
+#     @END primary_key_constraint_check
+
+#     @BEGIN foreign_key_constraint_check  @desc set and enforce single foreign key constraints.
+#     @PARAM sql_tablename
+#     @PARAM foreign_keys_colnames
+#     @PARAM cleaned_and_normalized_tables
+#     @PARAM conn
+#     @END foreign_key_constraint_check
+
+#     @BEGIN composeite_primary_key_constraint_check  @desc set and enforce composite primary key constraints.
+#     @PARAM sql_tablename
+#     @PARAM primary_keys_colnames
+#     @PARAM cleaned_and_normalized_tables
+#     @PARAM conn
+#     @END foreign_key_constraint_check
+
+#     @BEGIN composite_foreign_key_constraint_check  @desc set and enforce composite foreign key constraints.
+#     @PARAM sql_tablename
+#     @PARAM composite_foreign_keys_colnames
+#     @PARAM cleaned_and_normalized_tables
+#     @PARAM conn
+#     @END composite_foreign_key_constraint_check
 
 # @END normalize_dataset

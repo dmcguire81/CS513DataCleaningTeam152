@@ -1,0 +1,169 @@
+Primary Key constraints
+-----------------------
+The primary key(s) should uniquely determine all other attributes. i.e They cannot be null and they cannot have duplicate values. The queries below checks PK violations in denial form for all the tables. We check null primary keys, as well as duplicate PKs. 
+
+
+
+## 1. Food_Licensee_Inspections: check null PK
+SELECT "Inspection ID", "License #", Risk, "Inspection Date", "Inspection Type", Results
+FROM Food_Licensee_Inspections 
+WHERE "Inspection ID" IS NULL 
+LIMIT 5;
+
+# 2. Food_Licensee_Inspections: duplicate Pks
+SELECT "Inspection ID", Count("Inspection ID") 
+FROM Food_Licensee_Inspections 
+GROUP BY "Inspection ID"
+HAVING Count("Inspection ID") > 1
+LIMIT 5;
+
+## 3. Food_Licensee_Inspections: pk determing different attributes
+SELECT A."Inspection ID", A."License #", A.Risk, A."Inspection Date", A."Inspection Type", A.Results
+FROM Food_Licensee_Inspections A
+JOIN Food_Licensee_Inspections B 
+ON A."Inspection ID"=B."Inspection ID"
+WHERE (A."License #"!=B."License #") OR 
+      (A.Risk!=B.Risk) OR 
+      (A."Inspection Date"!=B."Inspection Date") OR 
+      (A."Inspection Type"!=B."Inspection Type") OR 
+      (A.Results!=B.Results) 
+LIMIT 5;
+
+
+# 1. Food_Violations
+SELECT "Violation ID", "Violation Title"
+FROM Food_Violations
+WHERE "Violation ID" IS NULL
+LIMIT 5;
+
+# 2. Food_Violations
+SELECT A."Violation ID", A."Violation Title"
+FROM Food_Violations A
+JOIN Food_Violations B 
+ON  A."Violation ID" = B."Violation ID" 
+WHERE (A."Violation Title"!=B."Violation Title")
+LIMIT 5;
+
+# 3. Food_Violations 
+SELECT "Violation ID", Count("Violation ID")
+FROM Food_Violations
+GROUP BY "Violation ID"
+HAVING Count("Violation ID") > 1
+LIMIT 5;
+
+
+# 3. Food_Violations
+SELECT "Violation ID", Count("Violation ID")
+FROM Food_Violations
+GROUP BY "Violation ID"
+HAVING Count("Violation ID") > 1
+LIMIT 5;
+
+# 1. Food_Locations (pk constrain violated)
+%%sql 
+SELECT Address, City, State, Zip, Latitude, Longitude
+FROM Food_Locations
+WHERE Address IS NULL OR City IS NULL OR State IS NULL OR Zip IS NULL
+LIMIT 5;
+
+# 2. Food_Locations
+%%sql 
+SELECT A.Address, A.City, A.State, A.Zip, A.Latitude, A.Longitude
+FROM Food_Locations A
+JOIN Food_Locations B 
+ON  A.Address = B.Address AND A.Zip = B.Zip AND A.City=B.City AND A.State=B.State 
+WHERE (A.Latitude !=B.Latitude) OR 
+      (A.Longitude!=B.Longitude) 
+LIMIT 5;
+
+# 3. Food_Locations
+%%sql 
+SELECT Address, City, State, Zip, Count(*)
+FROM Food_Locations
+GROUP BY Address, City, State, Zip
+HAVING Count(*) >1
+LIMIT 5;
+
+# 1. Food_Licensees (PK constraint violated)
+%%sql 
+SELECT "License #", "DBA Name", "AKA Name", "Facility Type", Address, City, State, Zip, Latitude, Longitude
+FROM Food_Licensees
+WHERE "License #" IS NULL
+LIMIT 5;
+
+# 3. Food_Licensees (PK constrint violated)
+%%sql 
+SELECT "License #", Count(*)
+FROM Food_Licensees
+WHERE "License #" IS NOT NULL
+GROUP BY "License #"
+HAVING Count(*) > 1
+LIMIT 5;
+
+
+SELECT A."License #", A."DBA Name", A."AKA Name", A."Facility Type", A.Address, A.City, A.State, A.Zip, A.Latitude, A.Longitude
+FROM Food_Licensees A
+JOIN Food_Licensees B 
+ON A."License #"=B."License #"
+WHERE (A."DBA Name"!=B."DBA Name") OR 
+      (A."AKA Name"!=B."AKA Name") OR 
+      (A."Facility Type"!=B."Facility Type") OR 
+      (A.Address!=B.Address) OR 
+      (A.City!=B.City) OR 
+      (A.State!=B.State) OR 
+      (A.Zip!=B.Zip) OR 
+      (A.Longitude!=B.Longitude) 
+LIMIT 5;
+
+
+Referencial constraint
+----------------------------
+Show dangaling or ophan foreign keys. A dangling foreign key is a foreign key that links to a nonexistent primary key. The queries below display the orphan records for tables with relational columns. 
+
+
+SELECT * 
+FROM Food_Licensee_Inspections T1
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM Food_Licensees T2
+  WHERE T1."License #" = T2."License #"
+)
+LIMIT 3;
+
+
+
+SELECT * 
+FROM CLeaned_Food_Inspection_Violations T1
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM Cleaned_Food_Licensee_Inspections T2
+  WHERE T1."Inspection ID" = T2."Inspection ID"
+)
+LIMIT 3;
+
+
+SELECT * 
+FROM Food_Licensees T1
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM Food_Locations T2
+  WHERE T1.Address = T2.Address AND 
+        T1.Zip = T2.Zip AND 
+        T1.State = T2.State AND 
+        T1.City = T2.City
+)
+LIMIT 3;
+
+
+SELECT * 
+FROM Food_Inspection_Violations T1
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM Food_Violations T2
+  WHERE T1."Violation ID" = T2."Violation ID"
+) AND NOT EXISTS (
+  SELECT 1
+  FROM Food_Licensee_Inspections T2
+  WHERE T1."Inspection ID" = T2."Inspection ID"
+)
+LIMIT 3;

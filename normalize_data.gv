@@ -29,6 +29,10 @@ food_licensees_to_sql [shape=record rankdir=LR label="{{<f0> food_licensees_to_s
 food_locations_to_sql [shape=record rankdir=LR label="{{<f0> food_locations_to_sql |<f1> write the food locations data to SQL database.}}"];
 dirty_food_inspections_to_sql [shape=record rankdir=LR label="{{<f0> dirty_food_inspections_to_sql |<f1> write original data(dirty data) to SQL database.}}"];
 repair_referential_IC [shape=record rankdir=LR label="{{<f0> repair_referential_IC |<f1> remove (orphan) reocrds which violate referential integrity.}}"];
+primary_key_constraint_check [shape=record rankdir=LR label="{{<f0> primary_key_constraint_check |<f1> set and enforce single primary key constraints.}}"];
+foreign_key_constraint_check [shape=record rankdir=LR label="{{<f0> foreign_key_constraint_check |<f1> set and enforce single foreign key constraints.}}"];
+composeite_primary_key_constraint_check [shape=record rankdir=LR label="{{<f0> composeite_primary_key_constraint_check |<f1> set and enforce composite primary key constraints.}}"];
+composite_foreign_key_constraint_check [shape=record rankdir=LR label="{{<f0> composite_foreign_key_constraint_check |<f1> set and enforce composite foreign key constraints.}}"];
 
 /* Style for nodes representing non-parameter data channels in workflow */
 node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
@@ -57,6 +61,7 @@ node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname
 
 /* Nodes representing parameter channels in workflow */
 conn
+cleaned_and_normalized_tables
 
 /* Edges representing connections between programs and channels */
 food_licensee_inspections_input -> food_licensee_inspections
@@ -108,13 +113,29 @@ dirty_food_inspections_tablename -> dirty_food_inspections_to_sql
 conn -> dirty_food_inspections_to_sql
 if_exists -> dirty_food_inspections_to_sql
 index -> dirty_food_inspections_to_sql
-repair_referential_IC -> sqlite_db_file
+repair_referential_IC -> cleaned_and_normalized_tables
 food_licensee_inspections_table -> repair_referential_IC
 food_licensees_table -> repair_referential_IC
 food_inspection_violations_table -> repair_referential_IC
 food_violations_table -> repair_referential_IC
 food_locations_table -> repair_referential_IC
 conn -> repair_referential_IC
+sql_tablename -> primary_key_constraint_check
+primary_keys_colnames -> primary_key_constraint_check
+cleaned_and_normalized_tables -> primary_key_constraint_check
+conn -> primary_key_constraint_check
+sql_tablename -> foreign_key_constraint_check
+foreign_keys_colnames -> foreign_key_constraint_check
+cleaned_and_normalized_tables -> foreign_key_constraint_check
+conn -> foreign_key_constraint_check
+sql_tablename -> composeite_primary_key_constraint_check
+primary_keys_colnames -> composeite_primary_key_constraint_check
+cleaned_and_normalized_tables -> composeite_primary_key_constraint_check
+conn -> composeite_primary_key_constraint_check
+sql_tablename -> composite_foreign_key_constraint_check
+composite_foreign_keys_colnames -> composite_foreign_key_constraint_check
+cleaned_and_normalized_tables -> composite_foreign_key_constraint_check
+conn -> composite_foreign_key_constraint_check
 
 /* End of double cluster for drawing box around nodes in workflow */
 }}
@@ -129,7 +150,6 @@ food_violations_file_input_port [label=""]
 food_licensees_file_input_port [label=""]
 food_locations_file_input_port [label=""]
 dirty_food_inspections_file_input_port [label=""]
-sqlite_db_file_input_port [label=""]
 
 /* Style for nodes representing workflow output ports */
 node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
@@ -144,7 +164,6 @@ food_violations_file_input_port -> food_violations_file
 food_licensees_file_input_port -> food_licensees_file
 food_locations_file_input_port -> food_locations_file
 dirty_food_inspections_file_input_port -> dirty_food_inspections_file
-sqlite_db_file_input_port -> sqlite_db_file
 
 /* Edges from channels to output ports */
 

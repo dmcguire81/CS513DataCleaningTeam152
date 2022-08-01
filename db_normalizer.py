@@ -3,6 +3,161 @@ import re
 import sqlite3
 import pandas as pd
 
+
+def get_create_table_string(tablename, connection):
+    sql = """
+    select * from sqlite_master where name = "{}" and type = "table"
+    """.format(tablename) 
+    result = connection.execute(sql)
+    create_table_string = result.fetchmany()[0][4]
+    return create_table_string
+
+def add_pk_to_create_table_string(create_table_string, colname):
+    regex = "(\n*[\"]*{}[\"]*\s+[^,]+)([,)])".format(colname)
+    # The schema change persist in the database. If the primary key was already added,
+    # we can't have more than one primary key. Check before add primary key
+    matched = re.search(regex,create_table_string).group()
+    if "PRIMARY KEY" in matched:
+        return create_table_string
+    return re.sub(regex, "\\1 PRIMARY KEY,",  create_table_string, count=1)
+
+def add_pk_to_sqlite_table(tablename, index_column, connection):
+    cts = get_create_table_string(tablename, connection)
+    cts = add_pk_to_create_table_string(cts, index_column)
+    template = """
+    PRAGMA foreign_keys=off;
+
+    BEGIN TRANSACTION;
+        ALTER TABLE {tablename} RENAME TO {tablename}_old_;
+
+        {cts};
+
+        INSERT INTO {tablename} SELECT * FROM {tablename}_old_;
+
+        DROP TABLE IF EXISTS {tablename}_old_;
+
+    COMMIT TRANSACTION;
+
+    PRAGMA foreign_keys=on;
+    """
+
+    create_and_drop_sql = template.format(tablename = tablename, cts = cts)
+    connection.executescript(create_and_drop_sql)
+
+def add_fk_to_create_table_string(create_table_string, colname, parent_tablename):
+    # When the parent table is renamed, it automatically renames this part. It may leave the
+    # the old name in the child table schema. This takes care of that. 
+    if "_old_" in create_table_string:
+        regex = '(["]*(\w+(?=_old_))_old_["]*)'
+        create_table_string = re.sub(regex, "\\2",  create_table_string, count=1)
+
+    # Ensure duplicate foreign key constraint is not added for the same col. 
+    fk_template = f',FOREIGN KEY ("{colname}") REFERENCES {parent_tablename}("{colname}"))'
+    if fk_template in create_table_string:
+        return create_table_string 
+
+    last_bracket_regex = "([)]$)"
+    return re.sub(last_bracket_regex, fk_template,  create_table_string, count=1)
+
+def add_fk_to_sqlite_table(tablename, fk_colname, parent_tablename, connection):
+    cts = get_create_table_string(tablename, connection)
+    cts = add_fk_to_create_table_string(cts, fk_colname, parent_tablename)
+    
+    template = """
+    PRAGMA foreign_keys=on;
+
+    BEGIN TRANSACTION;
+        ALTER TABLE {tablename} RENAME TO {tablename}_old_;
+
+        {cts};
+
+        INSERT INTO {tablename} SELECT * FROM {tablename}_old_;
+
+        DROP TABLE IF EXISTS {tablename}_old_;
+
+    COMMIT TRANSACTION;
+
+    PRAGMA foreign_keys=off;
+    """
+    
+    create_and_drop_sql = template.format(tablename = tablename, cts = cts)
+    connection.executescript(create_and_drop_sql)
+
+def add_composite_pk_to_create_table_string(create_table_string, pk_cols):
+    pk_cols_str = ""
+    for i in range(len(pk_cols)-1):
+        pk_cols_str +=f'"{pk_cols[i]}",'
+    pk_cols_str +=f'"{pk_cols[len(pk_cols)-1]}"'
+    composite_pk_template = f',PRIMARY KEY({pk_cols_str}))'
+    # The schema change persist in the database. If the primary key was already added,
+    # we can't have more than one primary key. Check before add primary key
+    if composite_pk_template in create_table_string:
+        return create_table_string
+    return re.sub("([)]$)", composite_pk_template,  create_table_string, count=1)
+
+def add_composite_pk_to_sqlite_table(tablename, pk_cols, connection):
+    cts = get_create_table_string(tablename, connection)
+    cts = add_composite_pk_to_create_table_string(cts, pk_cols)
+    template = """
+    BEGIN TRANSACTION;
+        ALTER TABLE {tablename} RENAME TO {tablename}_old_;
+
+        {cts};
+
+        INSERT INTO {tablename} SELECT * FROM {tablename}_old_;
+
+        DROP TABLE IF EXISTS {tablename}_old_;
+
+    COMMIT TRANSACTION;
+    """
+    create_and_drop_sql = template.format(tablename = tablename, cts = cts)
+    connection.executescript(create_and_drop_sql)
+
+def add_composite_fk_to_create_table_string(create_table_string, pk_cols, parent_tablename):
+    # When the parent table is renamed, it automatically renames this part. It may leave the
+    # the old name in the child table schema. This takes care of that. 
+    if "_old_" in create_table_string:
+        regex = '(["]*(\w+(?=_old_))_old_["]*)'
+        create_table_string = re.sub(regex, "\\2",  create_table_string, count=1)
+        
+    pk_cols_str = ""
+    for i in range(len(pk_cols)-1):
+        pk_cols_str +=f'"{pk_cols[i]}",'
+    pk_cols_str +=f'"{pk_cols[len(pk_cols)-1]}"'  
+
+    # Ensure duplicate foreign key constraint is not added for the same col.  
+    composite_fk_tamplate = f',FOREIGN KEY ({pk_cols_str}) REFERENCES {parent_tablename} ({pk_cols_str}))'
+    if composite_fk_tamplate in create_table_string:
+        return create_table_string
+    return re.sub("([)]$)", composite_fk_tamplate,  create_table_string, count=1)
+
+
+def add_composite_fk_to_sqlite_table(tablename, pk_cols, parent_tablename, connection):
+    cts = get_create_table_string(tablename, connection)
+    cts = add_composite_fk_to_create_table_string(cts, pk_cols,parent_tablename)
+    template = """
+    BEGIN TRANSACTION;
+        ALTER TABLE {tablename} RENAME TO {tablename}_old_;
+
+        {cts};
+
+        INSERT INTO {tablename} SELECT * FROM {tablename}_old_;
+
+        DROP TABLE {tablename}_old_;
+
+    COMMIT TRANSACTION;
+    """
+    create_and_drop_sql = template.format(tablename = tablename, cts = cts)
+    connection.executescript(create_and_drop_sql)
+
+
+def repair_primary_key_constraint_violation(df, pk_colnames):
+    # The primary key column values can't be null
+    # There can't duplicate values in the PK column. 
+    deduped_df = df.drop_duplicates(subset=pk_colnames)
+    return deduped_df
+
+
 def repair_referential_IC(
     food_licensee_inspections,
     food_licensees, 
@@ -195,7 +350,7 @@ def main(
     # @IN food_inspection_violations_table
     # @IN food_violations_table
     # @IN food_locations_table
-    # @OUT sqlite_db_file
+    # @OUT cleaned_and_normalized_tables
     # @param conn 
     repair_referential_IC(
         "Food_Licensee_Inspections",
@@ -206,6 +361,48 @@ def main(
         conn
     )
     # @END repair_referential_IC
+
+    """Check single primary key constrainst"""
+    # @BEGIN primary_key_constraint_check @desc set and enforce single primary key constraints.
+    # @PARAM sql_tablename
+    # @PARAM primary_keys_colnames
+    # @PARAM cleaned_and_normalized_tables
+    # @PARAM conn
+    add_pk_to_sqlite_table("Cleaned_Food_Licensee_Inspections", "Inspection ID", conn)
+    add_pk_to_sqlite_table("Cleaned_Food_Violations", "Violation ID", conn)
+    add_pk_to_sqlite_table("Cleaned_Food_Licensees", "License #", conn) 
+    add_pk_to_sqlite_table("Cleaned_Food_Inspection_Violations", "index", conn) 
+    # @END primary_key_constraint_check
+
+    """Check single foreign key constrainst"""
+    # @BEGIN foreign_key_constraint_check @desc set and enforce single foreign key constraints.
+    # @PARAM sql_tablename
+    # @PARAM foreign_keys_colnames
+    # @PARAM cleaned_and_normalized_tables
+    # @PARAM conn
+    add_fk_to_sqlite_table("Cleaned_Food_Licensee_Inspections", "License #", "Cleaned_Food_Licensees", conn)
+    add_fk_to_sqlite_table("Cleaned_Food_Inspection_Violations", "Violation ID", "Cleaned_Food_Violations", conn)
+    #add_fk_to_sqlite_table("Cleaned_Food_Inspection_Violations", "Inspection ID", "Cleaned_Food_Licensee_Inspections", conn)
+    # @END foreign_key_constraint_check
+
+    """Check composite Primary foreign key constraints"""
+    # @BEGIN composeite_primary_key_constraint_check @desc set and enforce composite primary key constraints.
+    # @PARAM sql_tablename
+    # @PARAM primary_keys_colnames
+    # @PARAM cleaned_and_normalized_tables
+    # @PARAM conn
+    add_composite_pk_to_sqlite_table("Cleaned_Food_Locations", ["Address","City","State","Zip"],conn)
+    # @END foreign_key_constraint_check
+
+
+    """Check composite foreign key constraints"""
+    # @BEGIN composite_foreign_key_constraint_check @desc set and enforce composite foreign key constraints.
+    # @PARAM sql_tablename
+    # @PARAM composite_foreign_keys_colnames
+    # @PARAM cleaned_and_normalized_tables
+    # @PARAM conn
+    add_composite_fk_to_sqlite_table("Cleaned_Food_Licensees", ["Address","City","State","Zip"],"Cleaned_Food_Locations",conn)
+    # @END composite_foreign_key_constraint_check
 
 # @END normalize_dataset
 
