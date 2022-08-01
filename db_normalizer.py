@@ -77,6 +77,7 @@ def main(
     # @IN food_licensee_inspections_file @URI file://{food_licensee_inspections_filename}
     # @OUT food_licensee_inspections
     food_licensee_inspections = pd.read_csv(food_licensee_inspections_filename)
+    food_licensee_inspections["License #"] = food_licensee_inspections["License #"].astype('Int64')
     # @END food_licensee_inspections_input
 
     # @BEGIN food_inspection_violations_input @desc read food inspection violations data from csv, and drop duplicate records.
@@ -101,6 +102,7 @@ def main(
     food_licensees["State"] = food_licensees["State"].str.upper()
     food_licensees["City"] = food_licensees["City"].str.upper()
     food_licensees["Address"] = food_licensees["Address"].str.upper()
+    food_licensees["License #"] = food_licensees["License #"].astype('Int64')
     food_licensees = food_licensees.dropna(subset=['License #', 'Address', 'Zip'])
     food_licensees = food_licensees.drop_duplicates(subset=['License #'])
     # @END food_licensees_input
