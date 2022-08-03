@@ -1,0 +1,171 @@
+
+/* Start of top-level graph */
+digraph Workflow {
+rankdir=LR
+
+/* Title for graph */
+fontname=Helvetica; fontsize=18; labelloc=t
+label=normalize_dataset
+
+/* Start of double cluster for drawing box around nodes in workflow */
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; penwidth=0
+
+/* Style for nodes representing atomic programs in workflow */
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Helvetica]
+
+/* Nodes representing atomic programs in workflow */
+food_licensee_inspections_input [shape=record rankdir=LR label="{{<f0> food_licensee_inspections_input |<f1> load the food licensee inspections data data from csv.}}"];
+food_inspection_violations_input [shape=record rankdir=LR label="{{<f0> food_inspection_violations_input |<f1> read food inspection violations data from csv, and drop duplicate records.}}"];
+food_violations_input [shape=record rankdir=LR label="{{<f0> food_violations_input |<f1> read the food violations data from csv.}}"];
+food_licensees_input [shape=record rankdir=LR label="{{<f0> food_licensees_input |<f1> read the food licensees data spreadsheet, normalize casing different, drop null values and duplicate records.}}"];
+food_locations_input [shape=record rankdir=LR label="{{<f0> food_locations_input |<f1> load food locations data from csv, drop null values and duplicate records.}}"];
+dirty_food_inspections_input [shape=record rankdir=LR label="{{<f0> dirty_food_inspections_input |<f1> load the original data data from csv.}}"];
+create_or_connect_to_sqlite_db
+food_licensee_inspections_to_sql [shape=record rankdir=LR label="{{<f0> food_licensee_inspections_to_sql |<f1> write the food licensee inspections data to SQL database table.}}"];
+food_inspection_violations_to_sql [shape=record rankdir=LR label="{{<f0> food_inspection_violations_to_sql |<f1> write the food inspection violations data to SQL database.}}"];
+food_violations_to_sql [shape=record rankdir=LR label="{{<f0> food_violations_to_sql |<f1> write the food violations data to SQL database.}}"];
+food_licensees_to_sql [shape=record rankdir=LR label="{{<f0> food_licensees_to_sql |<f1> write the food licensees data to SQL database.}}"];
+food_locations_to_sql [shape=record rankdir=LR label="{{<f0> food_locations_to_sql |<f1> write the food locations data to SQL database.}}"];
+dirty_food_inspections_to_sql [shape=record rankdir=LR label="{{<f0> dirty_food_inspections_to_sql |<f1> write original data(dirty data) to SQL database.}}"];
+repair_referential_IC [shape=record rankdir=LR label="{{<f0> repair_referential_IC |<f1> remove (orphan) reocrds which violate referential integrity.}}"];
+primary_key_constraint_check [shape=record rankdir=LR label="{{<f0> primary_key_constraint_check |<f1> set and enforce single primary key constraints.}}"];
+foreign_key_constraint_check [shape=record rankdir=LR label="{{<f0> foreign_key_constraint_check |<f1> set and enforce single foreign key constraints.}}"];
+composeite_primary_key_constraint_check [shape=record rankdir=LR label="{{<f0> composeite_primary_key_constraint_check |<f1> set and enforce composite primary key constraints.}}"];
+composite_foreign_key_constraint_check [shape=record rankdir=LR label="{{<f0> composite_foreign_key_constraint_check |<f1> set and enforce composite foreign key constraints.}}"];
+
+/* Style for nodes representing non-parameter data channels in workflow */
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+
+/* Nodes for non-parameter data channels in workflow */
+food_licensee_inspections_file [shape=record rankdir=LR label="{{<f0> food_licensee_inspections_file |<f1> file\://\{food_licensee_inspections_filename\}}}"];
+food_inspection_violations_file [shape=record rankdir=LR label="{{<f0> food_inspection_violations_file |<f1> file\://\{food_inspection_violations_filename\}}}"];
+food_violations_file [shape=record rankdir=LR label="{{<f0> food_violations_file |<f1> file\://\{food_violations_filename\}}}"];
+food_licensees_file [shape=record rankdir=LR label="{{<f0> food_licensees_file |<f1> file\://\{food_licensees_filename\}}}"];
+food_locations_file [shape=record rankdir=LR label="{{<f0> food_locations_file |<f1> file\://\{food_locations_filename\}}}"];
+dirty_food_inspections_file [shape=record rankdir=LR label="{{<f0> dirty_food_inspections_file |<f1> file\://\{dirty_food_inspections_filename\}}}"];
+food_licensee_inspections
+food_inspection_violations
+food_violations
+food_licensees
+food_locations
+dirty_food_inspections
+food_licensee_inspections_table
+food_licensees_table
+food_inspection_violations_table
+food_violations_table
+food_locations_table
+
+/* Style for nodes representing parameter channels in workflow */
+node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
+
+/* Nodes representing parameter channels in workflow */
+conn
+cleaned_and_normalized_tables
+
+/* Edges representing connections between programs and channels */
+food_licensee_inspections_input -> food_licensee_inspections
+food_licensee_inspections_file -> food_licensee_inspections_input
+food_inspection_violations_input -> food_inspection_violations
+food_inspection_violations_file -> food_inspection_violations_input
+food_violations_input -> food_violations
+food_violations_file -> food_violations_input
+food_licensees_input -> food_licensees
+food_licensees_file -> food_licensees_input
+food_locations_input -> food_locations
+food_locations_file -> food_locations_input
+dirty_food_inspections_input -> dirty_food_inspections
+dirty_food_inspections_file -> dirty_food_inspections_input
+create_or_connect_to_sqlite_db -> conn
+sqllite_db_file -> create_or_connect_to_sqlite_db
+food_licensee_inspections_to_sql -> food_licensee_inspections_table
+food_licensee_inspections -> food_licensee_inspections_to_sql
+food_licensee_inspections_tablename -> food_licensee_inspections_to_sql
+conn -> food_licensee_inspections_to_sql
+if_exists -> food_licensee_inspections_to_sql
+index -> food_licensee_inspections_to_sql
+food_inspection_violations_to_sql -> food_inspection_violations_table
+food_inspection_violations -> food_inspection_violations_to_sql
+food_inspection_violations_tablename -> food_inspection_violations_to_sql
+conn -> food_inspection_violations_to_sql
+if_exists -> food_inspection_violations_to_sql
+index -> food_inspection_violations_to_sql
+food_violations_to_sql -> food_violations_table
+food_violations -> food_violations_to_sql
+food_violations_tablename -> food_violations_to_sql
+conn -> food_violations_to_sql
+if_exists -> food_violations_to_sql
+index -> food_violations_to_sql
+food_licensees_to_sql -> food_licensees_table
+food_licensees -> food_licensees_to_sql
+food_licensees_tablename -> food_licensees_to_sql
+conn -> food_licensees_to_sql
+if_exists -> food_licensees_to_sql
+index -> food_licensees_to_sql
+food_locations_to_sql -> food_locations_table
+food_locations -> food_locations_to_sql
+food_locations_tablename -> food_locations_to_sql
+conn -> food_locations_to_sql
+if_exists -> food_locations_to_sql
+index -> food_locations_to_sql
+dirty_food_inspections -> dirty_food_inspections_to_sql
+dirty_food_inspections_tablename -> dirty_food_inspections_to_sql
+conn -> dirty_food_inspections_to_sql
+if_exists -> dirty_food_inspections_to_sql
+index -> dirty_food_inspections_to_sql
+repair_referential_IC -> cleaned_and_normalized_tables
+food_licensee_inspections_table -> repair_referential_IC
+food_licensees_table -> repair_referential_IC
+food_inspection_violations_table -> repair_referential_IC
+food_violations_table -> repair_referential_IC
+food_locations_table -> repair_referential_IC
+conn -> repair_referential_IC
+sql_tablename -> primary_key_constraint_check
+primary_keys_colnames -> primary_key_constraint_check
+cleaned_and_normalized_tables -> primary_key_constraint_check
+conn -> primary_key_constraint_check
+sql_tablename -> foreign_key_constraint_check
+foreign_keys_colnames -> foreign_key_constraint_check
+cleaned_and_normalized_tables -> foreign_key_constraint_check
+conn -> foreign_key_constraint_check
+sql_tablename -> composeite_primary_key_constraint_check
+primary_keys_colnames -> composeite_primary_key_constraint_check
+cleaned_and_normalized_tables -> composeite_primary_key_constraint_check
+conn -> composeite_primary_key_constraint_check
+sql_tablename -> composite_foreign_key_constraint_check
+composite_foreign_keys_colnames -> composite_foreign_key_constraint_check
+cleaned_and_normalized_tables -> composite_foreign_key_constraint_check
+conn -> composite_foreign_key_constraint_check
+
+/* End of double cluster for drawing box around nodes in workflow */
+}}
+
+/* Style for nodes representing workflow input ports */
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+
+/* Nodes representing workflow input ports */
+food_licensee_inspections_file_input_port [label=""]
+food_inspection_violations_file_input_port [label=""]
+food_violations_file_input_port [label=""]
+food_licensees_file_input_port [label=""]
+food_locations_file_input_port [label=""]
+dirty_food_inspections_file_input_port [label=""]
+
+/* Style for nodes representing workflow output ports */
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+
+/* Nodes representing workflow output ports */
+sqllite_db_file_output_port [label=""]
+
+/* Edges from input ports to channels */
+food_licensee_inspections_file_input_port -> food_licensee_inspections_file
+food_inspection_violations_file_input_port -> food_inspection_violations_file
+food_violations_file_input_port -> food_violations_file
+food_licensees_file_input_port -> food_licensees_file
+food_locations_file_input_port -> food_locations_file
+dirty_food_inspections_file_input_port -> dirty_food_inspections_file
+
+/* Edges from channels to output ports */
+
+/* End of top-level graph */
+}

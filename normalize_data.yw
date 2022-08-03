@@ -1,0 +1,137 @@
+# @BEGIN normalize_dataset
+# @IN food_licensee_inspections_file  @URI file://{food_licensee_inspections_filename}
+# @IN food_inspection_violations_file  @URI file://{food_inspection_violations_filename}
+# @IN food_violations_file  @URI file://{food_violations_filename}
+# @IN food_licensees_file  @URI file://{food_licensees_filename}
+# @IN food_locations_file  @URI file://{food_locations_filename}
+# @IN dirty_food_inspections_file  @URI file://{dirty_food_inspections_filename}
+# @param sqlite_db_file
+# @OUT sqllite_db_file  @URI file://{sqlite_db_filename}
+
+#     @BEGIN food_licensee_inspections_input  @desc load the food licensee inspections data data from csv.
+#     @IN food_licensee_inspections_file  @URI file://{food_licensee_inspections_filename}
+#     @OUT food_licensee_inspections
+#     @END food_licensee_inspections_input
+
+#     @BEGIN food_inspection_violations_input  @desc read food inspection violations data from csv, and drop duplicate records.
+#     @IN food_inspection_violations_file  @URI file://{food_inspection_violations_filename}
+#     @OUT food_inspection_violations
+#     @END food_inspection_violations_input
+
+#     @BEGIN food_violations_input  @desc read the food violations data from csv.
+#     @IN food_violations_file  @URI file://{food_violations_filename}
+#     @OUT food_violations
+#     @END food_violations_input
+
+#     @BEGIN food_licensees_input  @desc read the food licensees data spreadsheet, normalize casing different, drop null values and duplicate records.
+#     @IN food_licensees_file  @URI file://{food_licensees_filename}
+#     @OUT food_licensees
+#     @END food_licensees_input
+
+#     @BEGIN food_locations_input  @desc load food locations data from csv, drop null values and duplicate records.
+#     @IN food_locations_file  @URI file://{food_locations_filename}
+#     @OUT food_locations
+#     @END food_locations_input
+
+#     @BEGIN dirty_food_inspections_input  @desc load the original data data from csv.
+#     @IN dirty_food_inspections_file  @URI file://{dirty_food_inspections_filename}
+#     @OUT dirty_food_inspections
+#     @END dirty_food_inspections
+
+#     @BEGIN create_or_connect_to_sqlite_db
+#     @IN sqllite_db_file  @URI file://{sqllite_db_filename}
+#     @OUT conn
+#     @END create_or_connect_to_sqlite_db
+
+#     @BEGIN food_licensee_inspections_to_sql  @desc write the food licensee inspections data to SQL database table.
+#     @IN food_licensee_inspections
+#     @param food_licensee_inspections_tablename
+#     @param conn
+#     @param if_exists
+#     @param index
+#     @OUT food_licensee_inspections_table
+#     @END food_licensee_inspections_to_sql
+
+#     @BEGIN food_inspection_violations_to_sql  @desc write the food inspection violations data to SQL database.
+#     @IN food_inspection_violations
+#     @param food_inspection_violations_tablename
+#     @param conn
+#     @param if_exists
+#     @param index
+#     @OUT food_inspection_violations_table
+#     @END food_inspection_violations_to_sql
+
+#     @BEGIN food_violations_to_sql  @desc write the food violations data to SQL database.
+#     @IN food_violations
+#     @param food_violations_tablename
+#     @param conn
+#     @param if_exists
+#     @param index
+#     @OUT food_violations_table
+#     @END food_violations_to_sql
+
+#     @BEGIN food_licensees_to_sql  @desc write the food licensees data to SQL database.
+#     @IN  food_licensees
+#     @param food_licensees_tablename
+#     @param conn
+#     @param if_exists
+#     @param index
+#     @OUT food_licensees_table
+#     @END food_licensees_to_sql
+
+#     @BEGIN food_locations_to_sql  @desc write the food locations data to SQL database.
+#     @IN food_locations
+#     @param food_locations_tablename
+#     @param conn
+#     @param if_exists
+#     @param index
+#     @OUT food_locations_table
+#     @END food_locations_to_sql
+
+#     @BEGIN dirty_food_inspections_to_sql  @desc write original data(dirty data) to SQL database.
+#     @IN dirty_food_inspections
+#     @param dirty_food_inspections_tablename
+#     @param conn
+#     @param if_exists
+#     @param index
+#     @END dirty_food_inspections_to_sql
+
+#     @BEGIN repair_referential_IC  @desc remove (orphan) reocrds which violate referential integrity.
+#     @IN food_licensee_inspections_table
+#     @IN food_licensees_table
+#     @IN food_inspection_violations_table
+#     @IN food_violations_table
+#     @IN food_locations_table
+#     @OUT cleaned_and_normalized_tables
+#     @param conn
+#     @END repair_referential_IC
+
+#     @BEGIN primary_key_constraint_check  @desc set and enforce single primary key constraints.
+#     @PARAM sql_tablename
+#     @PARAM primary_keys_colnames
+#     @PARAM cleaned_and_normalized_tables
+#     @PARAM conn
+#     @END primary_key_constraint_check
+
+#     @BEGIN foreign_key_constraint_check  @desc set and enforce single foreign key constraints.
+#     @PARAM sql_tablename
+#     @PARAM foreign_keys_colnames
+#     @PARAM cleaned_and_normalized_tables
+#     @PARAM conn
+#     @END foreign_key_constraint_check
+
+#     @BEGIN composeite_primary_key_constraint_check  @desc set and enforce composite primary key constraints.
+#     @PARAM sql_tablename
+#     @PARAM primary_keys_colnames
+#     @PARAM cleaned_and_normalized_tables
+#     @PARAM conn
+#     @END foreign_key_constraint_check
+
+#     @BEGIN composite_foreign_key_constraint_check  @desc set and enforce composite foreign key constraints.
+#     @PARAM sql_tablename
+#     @PARAM composite_foreign_keys_colnames
+#     @PARAM cleaned_and_normalized_tables
+#     @PARAM conn
+#     @END composite_foreign_key_constraint_check
+
+# @END normalize_dataset
