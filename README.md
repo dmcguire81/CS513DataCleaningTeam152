@@ -111,7 +111,20 @@ dot -Tpng partition_food_locations.gv > partition_food_locations.png
 
 ### Normalize
 
-> **NOTE:** This sub-workflow is from a prototype, and is acting as a placeholder. Naming convention and generation instructions will be updated with the new implementation.
+```bash
+yw graph normalize.sql -c extract.comment='--' > normalize.gv
+dot -Tpng normalize.gv -o normalize.png
+```
+
+```sh
+sqlite3 Normalized_Food_Inspections.sqlite
+sqlite> .read Repaired_Food_Licensees_and_Locations.sql
+sqlite> .read Cleaned_Food_Licensee_Inspections.sql
+sqlite> .read Cleaned_and_Unnested_Food_Inspection_Violations.sql
+sqlite> .read normalize.sql
+```
+
+![Normalize](normalize.png)
 
 Download from [CS513 Data Cleaning](https://uillinoisedu-my.sharepoint.com/:f:/g/personal/dmcguire_illinois_edu/Ek8ZzambYMZOoGirOveJarMBoXWml2Q6oSnMXG_cbYHleQ?e=OfO3ef)
 * `Food_Inspections.csv` (original)
@@ -119,7 +132,7 @@ Download from [CS513 Data Cleaning](https://uillinoisedu-my.sharepoint.com/:f:/g
 * `Cleaned_Food_Licensees_and_Locations.csv`
 * `Cleaned_and_Unnested_Food_Inspection_Violations.csv`
 * `Repaired_Food_Licensees_and_Locations.csv`
-* `Food_Locations.csv`
+* `Normalized_Food_Inspections.sqlite` (cleaned & normalized)
 
 ```sh
 sqlite3 Food_Inspections.sqlite
@@ -132,6 +145,9 @@ sqlite> .read Food_Locations.sql
 ```
 
 ### Visualize
+
+* (Original dataset) https://public.tableau.com/app/profile/jose.cols/viz/Visualization_16595789943680/Dashboard
+* (Cleaned dataset) https://public.tableau.com/app/profile/jose.cols/viz/CleanedVisualization/Dashboard
 
 #### Results
 
