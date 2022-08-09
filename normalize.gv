@@ -1,0 +1,79 @@
+digraph Workflow {
+rankdir=TB
+fontname=Helvetica; fontsize=18; labelloc=t
+label=Normalize
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; penwidth=0
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Helvetica]
+Create_Food_Violations_Table
+Create_Food_Locations_Table
+Create_Food_Licensees_Table
+Create_Food_Licensee_Inspections_Table
+Save
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=2 fontname=Helvetica]
+Insert_Food_Violations
+Insert_Food_Locations
+Insert_Food_Licensees
+Insert_Food_Licensee_Inspections
+Create_Food_Inspection_Violations_Table
+Insert_Food_Inspection_Violations
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+Normalized_Food_Inspections [shape=record rankdir=LR label="{<f0> Normalized_Food_Inspections |<f1> file\:Normalized_Food_Inspections.sqlite}"];
+Food_Violations
+Cleaned_and_Unnested_Food_Inspection_Violations
+Food_Locations
+Repaired_Food_Licensees_and_Locations
+Food_Licensees
+Food_Licensee_Inspections
+Cleaned_Food_Licensee_Inspections
+Food_Inspection_Violations
+node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
+Create_Food_Violations_Table -> Food_Violations
+Insert_Food_Violations -> Food_Violations
+Food_Violations -> Insert_Food_Violations
+Cleaned_and_Unnested_Food_Inspection_Violations -> Insert_Food_Violations
+Create_Food_Locations_Table -> Food_Locations
+Insert_Food_Locations -> Food_Locations
+Food_Locations -> Insert_Food_Locations
+Repaired_Food_Licensees_and_Locations -> Insert_Food_Locations
+Create_Food_Licensees_Table -> Food_Licensees
+Food_Locations -> Create_Food_Licensees_Table
+Insert_Food_Licensees -> Food_Licensees
+Food_Licensees -> Insert_Food_Licensees
+Repaired_Food_Licensees_and_Locations -> Insert_Food_Licensees
+Create_Food_Licensee_Inspections_Table -> Food_Licensee_Inspections
+Food_Licensees -> Create_Food_Licensee_Inspections_Table
+Insert_Food_Licensee_Inspections -> Food_Licensee_Inspections
+Food_Licensee_Inspections -> Insert_Food_Licensee_Inspections
+Cleaned_Food_Licensee_Inspections -> Insert_Food_Licensee_Inspections
+Create_Food_Inspection_Violations_Table -> Food_Licensee_Inspections
+Food_Licensee_Inspections -> Create_Food_Inspection_Violations_Table
+Food_Violations -> Create_Food_Inspection_Violations_Table
+Insert_Food_Inspection_Violations -> Food_Inspection_Violations
+Food_Licensee_Inspections -> Insert_Food_Inspection_Violations
+Food_Inspection_Violations -> Insert_Food_Inspection_Violations
+Cleaned_and_Unnested_Food_Inspection_Violations -> Insert_Food_Inspection_Violations
+Save -> Normalized_Food_Inspections
+Food_Violations -> Save
+Food_Locations -> Save
+Food_Licensees -> Save
+Food_Licensee_Inspections -> Save
+Food_Inspection_Violations -> Save
+}}
+subgraph cluster_input_ports_group_outer { label=""; penwidth=0
+subgraph cluster_input_ports_group_inner { label=""; penwidth=0
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+Cleaned_Food_Licensee_Inspections_input_port [label=""]
+Repaired_Food_Licensees_and_Locations_input_port [label=""]
+Cleaned_and_Unnested_Food_Inspection_Violations_input_port [label=""]
+}}
+subgraph cluster_output_ports_group_outer { label=""; penwidth=0
+subgraph cluster_output_ports_group_inner { label=""; penwidth=0
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+Normalized_Food_Inspections_output_port [label=""]
+}}
+Cleaned_Food_Licensee_Inspections_input_port -> Cleaned_Food_Licensee_Inspections
+Repaired_Food_Licensees_and_Locations_input_port -> Repaired_Food_Licensees_and_Locations
+Cleaned_and_Unnested_Food_Inspection_Violations_input_port -> Cleaned_and_Unnested_Food_Inspection_Violations
+Normalized_Food_Inspections -> Normalized_Food_Inspections_output_port
+}
